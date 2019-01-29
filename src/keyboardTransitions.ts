@@ -7,42 +7,38 @@ export type KeyboardState =
   | "UNDOCKED"
   | "SPLIT";
 
-type Actions = { [key in KeyboardState]: Function };
+type Actions = {
+  [key in KeyboardState]: (args: KeyboardTransitionsArgs) => void
+};
 
-const closedKeyboardHandler = (
-  currentState: KeyboardState,
-  event: IOSKeyboardEvent
-): KeyboardState => {
+interface KeyboardTransitionsArgs {
+  currentState: KeyboardState;
+  event: IOSKeyboardEvent;
+  onKeyboardStateChange(nextState: KeyboardState): void;
+}
+
+const closedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
+  const { event, onKeyboardStateChange } = args;
   if (event.eventType === "keyboardDidShow") {
-    return "DOCKED";
+    onKeyboardStateChange("DOCKED");
   }
-  return currentState;
 };
 
-const dockedKeyboardHandler = (
-  currentState: KeyboardState,
-  event: IOSKeyboardEvent
-): KeyboardState => {
+const dockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
+  const { event, onKeyboardStateChange } = args;
   if (event.eventType === "keyboardDidHide") {
-    return "CLOSED";
+    onKeyboardStateChange("CLOSED");
   }
-  return currentState;
 };
 
-const getNextKeyboardState = (
-  currentState: KeyboardState,
-  event: IOSKeyboardEvent
-): KeyboardState => {
+const doKeyboardTransitions = (args: KeyboardTransitionsArgs): void => {
   const actions: Partial<Actions> = {
     CLOSED: closedKeyboardHandler,
     DOCKED: dockedKeyboardHandler
   };
 
-  const action = actions[currentState];
-  if (!action) {
-    return currentState;
-  }
-  return action(currentState, event);
+  const action = actions[args.currentState];
+  action && action(args);
 };
 
-export default getNextKeyboardState;
+export default doKeyboardTransitions;

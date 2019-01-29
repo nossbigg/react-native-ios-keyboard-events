@@ -1,5 +1,5 @@
 import { Keyboard, EmitterSubscription } from "react-native";
-import getNextKeyboardState, { KeyboardState } from "./keyboardTransitions";
+import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
 
 type KeyboardEventType =
   | "keyboardWillShow"
@@ -56,12 +56,15 @@ export default class IOSKeyboardEvents {
     });
   }
 
-  private onKeyboardEvent = (event: IOSKeyboardEvent) => {
-    const nextState = getNextKeyboardState(this.keyboardState, event);
-    if (nextState === this.keyboardState) {
-      return;
-    }
+  private onKeyboardEvent(event: IOSKeyboardEvent) {
+    doKeyboardTransitions({
+      event,
+      currentState: this.keyboardState,
+      onKeyboardStateChange: this.onKeyboardStateChange
+    });
+  }
 
+  private onKeyboardStateChange = (nextState: KeyboardState) => {
     Object.values(this.listeners).forEach(callback =>
       callback(this.keyboardState, nextState)
     );
