@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "jsx": "react-native",
+    "lib": ["es2018"],
+    "moduleResolution": "node",
+    "strict": true,
+    "target": "ES3",
+    "outDir": "dist",
+    "typeRoots": ["node_modules/@types"],
+    "declaration": true
+  },
+  "exclude": ["dist", "babel.config.js"]
+}
