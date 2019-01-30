@@ -1,6 +1,20 @@
 import { Keyboard, EmitterSubscription } from "react-native";
 import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
 
+type ScreenRect = {
+  screenX: number;
+  screenY: number;
+  width: number;
+  height: number;
+};
+
+interface KeyboardEvent {
+  duration: number;
+  easing: string;
+  endCoordinates: ScreenRect;
+  startCoordinates: ScreenRect;
+}
+
 type KeyboardEventType =
   | "keyboardWillShow"
   | "keyboardDidShow"
