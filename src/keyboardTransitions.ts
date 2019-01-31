@@ -1,4 +1,4 @@
-import { IOSKeyboardEvent } from "./IOSKeyboardEvents";
+import { IOSKeyboardEvent, ScreenRect } from "./IOSKeyboardEvents";
 
 export type KeyboardState =
   | "CLOSED"
@@ -14,20 +14,24 @@ type Actions = {
 interface KeyboardTransitionsArgs {
   currentState: KeyboardState;
   event: IOSKeyboardEvent;
+  setKeyboardDimensions(dimensions: ScreenRect | undefined): void;
+  isSameKeyboardDimensions(dimensions: ScreenRect): boolean;
   updateKeyboardState(nextState: KeyboardState): void;
 }
 
 const closedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
-  const { event, updateKeyboardState } = args;
+  const { event, updateKeyboardState, setKeyboardDimensions } = args;
   if (event.eventType === "keyboardDidShow") {
     updateKeyboardState("DOCKED");
+    setKeyboardDimensions(event.endCoordinates);
   }
 };
 
 const dockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
-  const { event, updateKeyboardState } = args;
+  const { event, updateKeyboardState, setKeyboardDimensions } = args;
   if (event.eventType === "keyboardDidHide") {
     updateKeyboardState("CLOSED");
+    setKeyboardDimensions(undefined);
   }
 };
 

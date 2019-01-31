@@ -5,7 +5,7 @@ import createTimer, {
   KeyboardTransitionTimer
 } from "./KeyboardTransitionTimer";
 
-type ScreenRect = {
+export type ScreenRect = {
   screenX: number;
   screenY: number;
   width: number;
@@ -49,6 +49,7 @@ export default class IOSKeyboardEvents {
   lastKeyboardState: KeyboardState;
   keyboardState: KeyboardState;
   keyboardTransitionTimer: KeyboardTransitionTimer;
+  keyboardDimensions: ScreenRect | undefined;
 
   constructor() {
     this.listeners = {};
@@ -56,6 +57,7 @@ export default class IOSKeyboardEvents {
     this.lastKeyboardEvent = undefined;
     this.lastKeyboardState = "CLOSED";
     this.keyboardTransitionTimer = createTimer();
+    this.keyboardDimensions = undefined;
 
     this.keyboardEventSubscriptions = [];
     this.startKeyboardListeners();
@@ -91,9 +93,21 @@ export default class IOSKeyboardEvents {
     doKeyboardTransitions({
       event: keyboardEvent,
       currentState: this.keyboardState,
+      setKeyboardDimensions: this.setKeyboardDimensions,
+      isSameKeyboardDimensions: this.isSameKeyboardDimensions,
       updateKeyboardState: this.updateKeyboardState
     });
   }
+
+  private setKeyboardDimensions = (
+    dimensions: ScreenRect | undefined
+  ): void => {
+    this.keyboardDimensions = dimensions;
+  };
+
+  private isSameKeyboardDimensions = (dimensions: ScreenRect): boolean => {
+    return _.isEqual(this.keyboardDimensions, dimensions);
+  };
 
   private updateKeyboardState = (nextState: KeyboardState) => {
     this.keyboardState = nextState;
