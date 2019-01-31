@@ -21,9 +21,31 @@ interface KeyboardTransitionsArgs {
 
 const closedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
   const { event, updateKeyboardState, setKeyboardDimensions } = args;
-  if (event.eventType === "keyboardDidShow") {
-    updateKeyboardState("DOCKED");
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 271
+  ) {
+    updateKeyboardState("SPLIT");
     setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 398
+  ) {
+    updateKeyboardState("UNDOCKED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 55
+  ) {
+    updateKeyboardState("MINIMIZED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
   }
 };
 
@@ -32,13 +54,64 @@ const dockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
   if (event.eventType === "keyboardDidHide") {
     updateKeyboardState("CLOSED");
     setKeyboardDimensions(undefined);
+    return;
+  }
+};
+
+const undockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
+  const { event, updateKeyboardState, setKeyboardDimensions } = args;
+  if (
+    event.eventType === "keyboardDidShow" &&
+    event.endCoordinates.height === 398
+  ) {
+    updateKeyboardState("DOCKED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidShow" &&
+    event.endCoordinates.height === 55
+  ) {
+    updateKeyboardState("MINIMIZED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 0
+  ) {
+    updateKeyboardState("CLOSED");
+    setKeyboardDimensions(undefined);
+    return;
+  }
+};
+
+const minimizedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
+  const { event, updateKeyboardState, setKeyboardDimensions } = args;
+  if (event.eventType === "keyboardDidHide") {
+    updateKeyboardState("CLOSED");
+    setKeyboardDimensions(undefined);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 398
+  ) {
+    updateKeyboardState("UNDOCKED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
   }
 };
 
 const doKeyboardTransitions = (args: KeyboardTransitionsArgs): void => {
   const actions: Partial<Actions> = {
     CLOSED: closedKeyboardHandler,
-    DOCKED: dockedKeyboardHandler
+    DOCKED: dockedKeyboardHandler,
+    UNDOCKED: undockedKeyboardHandler,
+    MINIMIZED: minimizedKeyboardHandler
   };
 
   const action = actions[args.currentState];

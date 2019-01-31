@@ -4,6 +4,7 @@ import _ from "lodash";
 import createTimer, {
   KeyboardTransitionTimer
 } from "./KeyboardTransitionTimer";
+import Queue from "queue";
 
 export type ScreenRect = {
   screenX: number;
@@ -50,6 +51,7 @@ export default class IOSKeyboardEvents {
   keyboardState: KeyboardState;
   keyboardTransitionTimer: KeyboardTransitionTimer;
   keyboardDimensions: ScreenRect | undefined;
+  keyboardEventQueue: Queue;
 
   constructor() {
     this.listeners = {};
@@ -58,6 +60,7 @@ export default class IOSKeyboardEvents {
     this.lastKeyboardState = "CLOSED";
     this.keyboardTransitionTimer = createTimer();
     this.keyboardDimensions = undefined;
+    this.keyboardEventQueue = Queue({ concurrency: 1, autostart: true });
 
     this.keyboardEventSubscriptions = [];
     this.startKeyboardListeners();
@@ -90,12 +93,14 @@ export default class IOSKeyboardEvents {
 
     this.lastKeyboardEvent = keyboardEvent;
     console.log(keyboardEvent);
-    doKeyboardTransitions({
-      event: keyboardEvent,
-      currentState: this.keyboardState,
-      setKeyboardDimensions: this.setKeyboardDimensions,
-      isSameKeyboardDimensions: this.isSameKeyboardDimensions,
-      updateKeyboardState: this.updateKeyboardState
+    this.keyboardEventQueue.push(async () => {
+      doKeyboardTransitions({
+        event: keyboardEvent,
+        currentState: this.keyboardState,
+        setKeyboardDimensions: this.setKeyboardDimensions,
+        isSameKeyboardDimensions: this.isSameKeyboardDimensions,
+        updateKeyboardState: this.updateKeyboardState
+      });
     });
   }
 
@@ -110,6 +115,7 @@ export default class IOSKeyboardEvents {
   };
 
   private updateKeyboardState = (nextState: KeyboardState) => {
+    console.log("updateKeyboard", nextState);
     this.keyboardState = nextState;
     this.keyboardTransitionTimer.set(() => {
       this.updateListeners();
