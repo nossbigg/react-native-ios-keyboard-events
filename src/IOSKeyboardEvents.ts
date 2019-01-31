@@ -1,5 +1,6 @@
 import { Keyboard, EmitterSubscription } from "react-native";
 import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
+import _ from "lodash";
 
 type ScreenRect = {
   screenX: number;
@@ -41,11 +42,13 @@ type ListenerCallback = (
 export default class IOSKeyboardEvents {
   keyboardEventSubscriptions: EmitterSubscription[];
   listeners: { [key: string]: ListenerCallback };
+  lastKeyboardEvent: IOSKeyboardEvent | undefined;
   keyboardState: KeyboardState;
 
   constructor() {
     this.listeners = {};
     this.keyboardState = "CLOSED";
+    this.lastKeyboardEvent = undefined;
 
     this.keyboardEventSubscriptions = [];
     this.startKeyboardListeners();
@@ -70,9 +73,15 @@ export default class IOSKeyboardEvents {
     });
   }
 
-  private onKeyboardEvent(event: IOSKeyboardEvent) {
+  private onKeyboardEvent(keyboardEvent: IOSKeyboardEvent) {
+    const isDuplicateEvent = _.isEqual(keyboardEvent, this.lastKeyboardEvent);
+    if (isDuplicateEvent) {
+      return;
+    }
+
+    this.lastKeyboardEvent = keyboardEvent;
     doKeyboardTransitions({
-      event,
+      event: keyboardEvent,
       currentState: this.keyboardState,
       onKeyboardStateChange: this.onKeyboardStateChange
     });
