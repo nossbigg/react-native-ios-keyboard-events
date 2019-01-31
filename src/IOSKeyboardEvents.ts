@@ -1,6 +1,9 @@
 import { Keyboard, EmitterSubscription } from "react-native";
 import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
 import _ from "lodash";
+import createTimer, {
+  KeyboardTransitionTimer
+} from "./KeyboardTransitionTimer";
 
 type ScreenRect = {
   screenX: number;
@@ -43,12 +46,16 @@ export default class IOSKeyboardEvents {
   keyboardEventSubscriptions: EmitterSubscription[];
   listeners: { [key: string]: ListenerCallback };
   lastKeyboardEvent: IOSKeyboardEvent | undefined;
+  lastKeyboardState: KeyboardState;
   keyboardState: KeyboardState;
+  keyboardTransitionTimer: KeyboardTransitionTimer;
 
   constructor() {
     this.listeners = {};
     this.keyboardState = "CLOSED";
     this.lastKeyboardEvent = undefined;
+    this.lastKeyboardState = "CLOSED";
+    this.keyboardTransitionTimer = createTimer();
 
     this.keyboardEventSubscriptions = [];
     this.startKeyboardListeners();
@@ -80,19 +87,27 @@ export default class IOSKeyboardEvents {
     }
 
     this.lastKeyboardEvent = keyboardEvent;
+    console.log(keyboardEvent);
     doKeyboardTransitions({
       event: keyboardEvent,
       currentState: this.keyboardState,
-      onKeyboardStateChange: this.onKeyboardStateChange
+      updateKeyboardState: this.updateKeyboardState
     });
   }
 
-  private onKeyboardStateChange = (nextState: KeyboardState) => {
-    Object.values(this.listeners).forEach(callback =>
-      callback(this.keyboardState, nextState)
-    );
+  private updateKeyboardState = (nextState: KeyboardState) => {
     this.keyboardState = nextState;
+    this.keyboardTransitionTimer.set(() => {
+      this.updateListeners();
+    }, 50);
   };
+
+  private updateListeners() {
+    Object.values(this.listeners).forEach(callback =>
+      callback(this.lastKeyboardState, this.keyboardState)
+    );
+    this.lastKeyboardState = this.keyboardState;
+  }
 
   close() {
     this.keyboardEventSubscriptions.forEach(subscription =>

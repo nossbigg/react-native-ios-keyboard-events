@@ -14,20 +14,20 @@ type Actions = {
 interface KeyboardTransitionsArgs {
   currentState: KeyboardState;
   event: IOSKeyboardEvent;
-  onKeyboardStateChange(nextState: KeyboardState): void;
+  updateKeyboardState(nextState: KeyboardState): void;
 }
 
 const closedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
-  const { event, onKeyboardStateChange } = args;
+  const { event, updateKeyboardState } = args;
   if (event.eventType === "keyboardDidShow") {
-    onKeyboardStateChange("DOCKED");
+    updateKeyboardState("DOCKED");
   }
 };
 
 const dockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
-  const { event, onKeyboardStateChange } = args;
+  const { event, updateKeyboardState } = args;
   if (event.eventType === "keyboardDidHide") {
-    onKeyboardStateChange("CLOSED");
+    updateKeyboardState("CLOSED");
   }
 };
 
