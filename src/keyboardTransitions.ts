@@ -90,6 +90,15 @@ const undockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
 
   if (
     event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 271
+  ) {
+    updateKeyboardState("SPLIT");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
     event.endCoordinates.height === 0
   ) {
     updateKeyboardState("CLOSED");
