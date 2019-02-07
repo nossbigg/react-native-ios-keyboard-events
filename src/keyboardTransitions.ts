@@ -57,6 +57,15 @@ const dockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
     setKeyboardDimensions(undefined);
     return;
   }
+
+  if (
+    event.eventType === "keyboardDidShow" &&
+    event.endCoordinates.height === 55
+  ) {
+    updateKeyboardState("MINIMIZED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
 };
 
 const undockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
