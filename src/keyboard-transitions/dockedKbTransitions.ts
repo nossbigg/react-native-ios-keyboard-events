@@ -1,6 +1,6 @@
 import { KeyboardTransitionHandlerType } from "../keyboardTransitions";
 
-const dockedKeyboardHandler: KeyboardTransitionHandlerType = args => {
+const dockedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
   const { event, updateKeyboardState, setKeyboardDimensions } = args;
   if (event.eventType === "keyboardDidHide") {
     updateKeyboardState("CLOSED");

@@ -1,21 +1,23 @@
 export class KeyboardTransitionTimer {
-  timer: number | undefined;
+  public timer: number | undefined;
 
   constructor() {
     this.timer = undefined;
   }
 
-  present() {
+  public present() {
     return !!this.timer;
   }
 
-  set(callback: Function, ms: number) {
+  public set(callback: () => void, ms: number) {
     this.reset();
     this.timer = setTimeout(callback, ms);
   }
 
-  reset() {
-    this.timer && clearTimeout(this.timer);
+  public reset() {
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
     this.timer = undefined;
   }
 }

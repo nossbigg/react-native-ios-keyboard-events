@@ -1,7 +1,7 @@
-import { createKeyboardEvent } from "./keyboardTransitionTestHelpers";
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
+import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import closedKeyboardHandler from "../closedKbTransitions";
-import { KeyboardTransitionsArgs } from "../../keyboardTransitions";
+import { createKeyboardEvent } from "./keyboardTransitionTestHelpers";
 
 describe("#closedKbTransitions", () => {
   let setKeyboardDimensions: jest.Mock;
@@ -15,12 +15,12 @@ describe("#closedKbTransitions", () => {
   });
 
   const doHandler = (event: IOSKeyboardEvent) => {
-    const args: KeyboardTransitionsArgs = {
+    const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       setKeyboardDimensions,
       isSameKeyboardDimensions,
-      currentState: "CLOSED"
+      currentState: "CLOSED",
     };
     closedKeyboardHandler(args);
   };

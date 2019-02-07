@@ -1,10 +1,10 @@
-import { IOSKeyboardEvent } from "./IOSKeyboardEvents";
 import { ScreenRect } from "react-native";
+import { IOSKeyboardEvent } from "./IOSKeyboardEvents";
 import closedKeyboardHandler from "./keyboard-transitions/closedKbTransitions";
 import dockedKeyboardHandler from "./keyboard-transitions/dockedKbTransitions";
-import undockedKeyboardHandler from "./keyboard-transitions/undockedKbTransitions";
 import minimizedKeyboardHandler from "./keyboard-transitions/minimizedKbTransitions";
 import splitKeyboardHandler from "./keyboard-transitions/splitKbTransitions";
+import undockedKeyboardHandler from "./keyboard-transitions/undockedKbTransitions";
 
 export type KeyboardState =
   | "CLOSED"
@@ -16,10 +16,10 @@ export type KeyboardState =
 type Actions = { [key in KeyboardState]: KeyboardTransitionHandlerType };
 
 export type KeyboardTransitionHandlerType = (
-  args: KeyboardTransitionsArgs
+  args: IKeyboardTransitionsArgs,
 ) => void;
 
-export interface KeyboardTransitionsArgs {
+export interface IKeyboardTransitionsArgs {
   currentState: KeyboardState;
   event: IOSKeyboardEvent;
   setKeyboardDimensions(dimensions: ScreenRect | undefined): void;
@@ -27,17 +27,19 @@ export interface KeyboardTransitionsArgs {
   updateKeyboardState(nextState: KeyboardState): void;
 }
 
-const doKeyboardTransitions = (args: KeyboardTransitionsArgs): void => {
+const doKeyboardTransitions = (args: IKeyboardTransitionsArgs): void => {
   const actions: Actions = {
     CLOSED: closedKeyboardHandler,
     DOCKED: dockedKeyboardHandler,
     UNDOCKED: undockedKeyboardHandler,
     MINIMIZED: minimizedKeyboardHandler,
-    SPLIT: splitKeyboardHandler
+    SPLIT: splitKeyboardHandler,
   };
 
   const action = actions[args.currentState];
-  action && action(args);
+  if (action) {
+    action(args);
+  }
 };
 
 export default doKeyboardTransitions;

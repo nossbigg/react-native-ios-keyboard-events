@@ -1,7 +1,7 @@
-import { createKeyboardEvent } from "./keyboardTransitionTestHelpers";
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
-import { KeyboardTransitionsArgs } from "../../keyboardTransitions";
+import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import minimizedKeyboardHandler from "../minimizedKbTransitions";
+import { createKeyboardEvent } from "./keyboardTransitionTestHelpers";
 
 describe("#minimizedKbTransitions", () => {
   let setKeyboardDimensions: jest.Mock;
@@ -15,12 +15,12 @@ describe("#minimizedKbTransitions", () => {
   });
 
   const doHandler = (event: IOSKeyboardEvent) => {
-    const args: KeyboardTransitionsArgs = {
+    const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       setKeyboardDimensions,
       isSameKeyboardDimensions,
-      currentState: "MINIMIZED"
+      currentState: "MINIMIZED",
     };
     minimizedKeyboardHandler(args);
   };

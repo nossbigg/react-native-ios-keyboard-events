@@ -1,15 +1,21 @@
-import { Keyboard, EmitterSubscription, ScreenRect, KeyboardEvent, KeyboardEventName } from "react-native";
-import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
 import _ from "lodash";
-import createTimer, {
-  KeyboardTransitionTimer
-} from "./KeyboardTransitionTimer";
 import Queue from "queue";
+import {
+  EmitterSubscription,
+  Keyboard,
+  KeyboardEvent,
+  KeyboardEventName,
+  ScreenRect,
+} from "react-native";
+import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
+import createTimer, {
+  KeyboardTransitionTimer,
+} from "./KeyboardTransitionTimer";
 
 const keyboardEvents: KeyboardEventName[] = [
   "keyboardDidShow",
   "keyboardDidHide",
-  "keyboardDidChangeFrame"
+  "keyboardDidChangeFrame",
 ];
 
 export interface IOSKeyboardEvent extends KeyboardEvent {
@@ -18,18 +24,18 @@ export interface IOSKeyboardEvent extends KeyboardEvent {
 
 type ListenerCallback = (
   previousState: KeyboardState,
-  currentState: KeyboardState
+  currentState: KeyboardState,
 ) => void;
 
 export default class IOSKeyboardEvents {
-  keyboardEventSubscriptions: EmitterSubscription[];
-  listeners: { [key: string]: ListenerCallback };
-  lastKeyboardEvent: IOSKeyboardEvent | undefined;
-  lastKeyboardState: KeyboardState;
-  keyboardState: KeyboardState;
-  keyboardTransitionTimer: KeyboardTransitionTimer;
-  keyboardDimensions: ScreenRect | undefined;
-  keyboardEventQueue: Queue;
+  public keyboardEventSubscriptions: EmitterSubscription[];
+  public listeners: { [key: string]: ListenerCallback };
+  public lastKeyboardEvent: IOSKeyboardEvent | undefined;
+  public lastKeyboardState: KeyboardState;
+  public keyboardState: KeyboardState;
+  public keyboardTransitionTimer: KeyboardTransitionTimer;
+  public keyboardDimensions: ScreenRect | undefined;
+  public keyboardEventQueue: Queue;
 
   constructor() {
     this.listeners = {};
@@ -44,20 +50,27 @@ export default class IOSKeyboardEvents {
     this.startKeyboardListeners();
   }
 
-  addListener(listenerName: string, callback: ListenerCallback) {
+  public addListener(listenerName: string, callback: ListenerCallback) {
     this.listeners[listenerName] = callback;
   }
 
+  public close() {
+    this.keyboardEventSubscriptions.forEach((subscription) =>
+      subscription.remove(),
+    );
+    this.listeners = {};
+  }
+
   private startKeyboardListeners() {
-    keyboardEvents.forEach(eventType => {
+    keyboardEvents.forEach((eventType) => {
       const subscription = Keyboard.addListener(
         eventType,
         (event: KeyboardEvent) => {
           this.onKeyboardEvent({
             eventType,
-            ...event
+            ...event,
           });
-        }
+        },
       );
       this.keyboardEventSubscriptions.push(subscription);
     });
@@ -73,24 +86,24 @@ export default class IOSKeyboardEvents {
     console.log(keyboardEvent);
     this.keyboardEventQueue.push(async () => {
       doKeyboardTransitions({
-        event: keyboardEvent,
         currentState: this.keyboardState,
+        event: keyboardEvent,
         setKeyboardDimensions: this.setKeyboardDimensions,
         isSameKeyboardDimensions: this.isSameKeyboardDimensions,
-        updateKeyboardState: this.updateKeyboardState
+        updateKeyboardState: this.updateKeyboardState,
       });
     });
   }
 
   private setKeyboardDimensions = (
-    dimensions: ScreenRect | undefined
+    dimensions: ScreenRect | undefined,
   ): void => {
     this.keyboardDimensions = dimensions;
-  };
+  }
 
   private isSameKeyboardDimensions = (dimensions: ScreenRect): boolean => {
     return _.isEqual(this.keyboardDimensions, dimensions);
-  };
+  }
 
   private updateKeyboardState = (nextState: KeyboardState) => {
     console.log("updateKeyboard", nextState);
@@ -98,19 +111,12 @@ export default class IOSKeyboardEvents {
     this.keyboardTransitionTimer.set(() => {
       this.updateListeners();
     }, 50);
-  };
-
-  private updateListeners() {
-    Object.values(this.listeners).forEach(callback =>
-      callback(this.lastKeyboardState, this.keyboardState)
-    );
-    this.lastKeyboardState = this.keyboardState;
   }
 
-  close() {
-    this.keyboardEventSubscriptions.forEach(subscription =>
-      subscription.remove()
+  private updateListeners() {
+    Object.values(this.listeners).forEach((callback) =>
+      callback(this.lastKeyboardState, this.keyboardState),
     );
-    this.listeners = {};
+    this.lastKeyboardState = this.keyboardState;
   }
 }

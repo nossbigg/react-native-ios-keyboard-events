@@ -9,7 +9,9 @@
     "ipad": "react-native run-ios --simulator='iPad Air 2'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "tsc",
+    "tslint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "lint": "tsc && npm run tslint",
+    "lint:fix": "prettier --write 'src/**/*.{ts,tsx}' && npm run tslint -- --fix",
     "dist": "rm -rf dist && npm run lint && npm run test && tsc -p tsconfig-dist.json"
   },
   "dependencies": {
@@ -26,6 +28,7 @@
     "@types/react-test-renderer": "^16.0.3",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "24.0.0",
+    "husky": "^1.3.1",
     "jest": "24.0.0",
     "metro-react-native-babel-preset": "0.51.1",
     "prettier": "^1.16.1",
@@ -44,5 +47,14 @@
     "testMatch": [
       "**/?(*.)+(spec|test).[tj]s?(x)"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run test"
+    }
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "arrowParens": "always"
   }
 }

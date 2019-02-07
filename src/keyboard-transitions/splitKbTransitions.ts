@@ -1,6 +1,6 @@
 import { KeyboardTransitionHandlerType } from "../keyboardTransitions";
 
-const splitKeyboardHandler: KeyboardTransitionHandlerType = args => {
+const splitKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
   const { event, updateKeyboardState, setKeyboardDimensions } = args;
   if (
     event.eventType === "keyboardDidChangeFrame" &&

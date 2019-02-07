@@ -1,6 +1,6 @@
 import { KeyboardTransitionHandlerType } from "../keyboardTransitions";
 
-const undockedKeyboardHandler: KeyboardTransitionHandlerType = args => {
+const undockedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
   const { event, updateKeyboardState, setKeyboardDimensions } = args;
   if (
     event.eventType === "keyboardDidShow" &&

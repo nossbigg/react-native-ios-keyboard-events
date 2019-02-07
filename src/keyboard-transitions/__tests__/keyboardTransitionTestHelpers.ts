@@ -1,5 +1,5 @@
-import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 import { KeyboardEventName } from "react-native";
+import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 
 export const createKeyboardEvent = (
   eventType: KeyboardEventName,
@@ -7,6 +7,6 @@ export const createKeyboardEvent = (
 ): Partial<IOSKeyboardEvent> => ({
   eventType,
   endCoordinates: {
-    height: endCoordinatesHeight
-  } as any
+    height: endCoordinatesHeight,
+  } as any,
 });

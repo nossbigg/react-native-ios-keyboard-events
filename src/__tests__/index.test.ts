@@ -1,5 +1,5 @@
-import IOSKeyboardEvents from "../IOSKeyboardEvents";
 import index from "../index";
+import IOSKeyboardEvents from "../IOSKeyboardEvents";
 
 describe("#index", () => {
   it("exports IOSKeyboardEvents", () => {
