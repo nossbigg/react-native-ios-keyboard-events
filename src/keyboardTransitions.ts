@@ -109,7 +109,10 @@ const undockedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
 
 const minimizedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
   const { event, updateKeyboardState, setKeyboardDimensions } = args;
-  if (event.eventType === "keyboardDidHide") {
+  if (
+    event.eventType === "keyboardDidHide" &&
+    event.endCoordinates.height === 0
+  ) {
     updateKeyboardState("CLOSED");
     setKeyboardDimensions(undefined);
     return;
@@ -123,6 +126,45 @@ const minimizedKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
     setKeyboardDimensions(event.endCoordinates);
     return;
   }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 271
+  ) {
+    updateKeyboardState("SPLIT");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+};
+
+const splitKeyboardHandler = (args: KeyboardTransitionsArgs): void => {
+  const { event, updateKeyboardState, setKeyboardDimensions } = args;
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 0
+  ) {
+    updateKeyboardState("CLOSED");
+    setKeyboardDimensions(undefined);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 398
+  ) {
+    updateKeyboardState("UNDOCKED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidShow" &&
+    event.endCoordinates.height === 55
+  ) {
+    updateKeyboardState("MINIMIZED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
 };
 
 const doKeyboardTransitions = (args: KeyboardTransitionsArgs): void => {
@@ -130,7 +172,8 @@ const doKeyboardTransitions = (args: KeyboardTransitionsArgs): void => {
     CLOSED: closedKeyboardHandler,
     DOCKED: dockedKeyboardHandler,
     UNDOCKED: undockedKeyboardHandler,
-    MINIMIZED: minimizedKeyboardHandler
+    MINIMIZED: minimizedKeyboardHandler,
+    SPLIT: splitKeyboardHandler
   };
 
   const action = actions[args.currentState];
