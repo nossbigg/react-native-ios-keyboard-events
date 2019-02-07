@@ -1,10 +1,20 @@
 import { KeyboardTransitionHandlerType } from "../keyboardTransitions";
 
 const closedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
-  const { event, updateKeyboardState, setKeyboardDimensions } = args;
+  const {
+    event,
+    updateKeyboardState,
+    setKeyboardDimensions,
+    deviceOrientation,
+    deviceInformation,
+  } = args;
+  const { split, docked, minimized } = deviceInformation.keyboardDimensions[
+    deviceOrientation
+  ];
+
   if (
     event.eventType === "keyboardDidChangeFrame" &&
-    event.endCoordinates.height === 271
+    event.endCoordinates.height === split
   ) {
     updateKeyboardState("SPLIT");
     setKeyboardDimensions(event.endCoordinates);
@@ -13,7 +23,7 @@ const closedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
 
   if (
     event.eventType === "keyboardDidChangeFrame" &&
-    event.endCoordinates.height === 398
+    event.endCoordinates.height === docked
   ) {
     updateKeyboardState("UNDOCKED");
     setKeyboardDimensions(event.endCoordinates);
@@ -22,16 +32,7 @@ const closedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
 
   if (
     event.eventType === "keyboardDidChangeFrame" &&
-    event.endCoordinates.height === 313
-  ) {
-    updateKeyboardState("UNDOCKED");
-    setKeyboardDimensions(event.endCoordinates);
-    return;
-  }
-
-  if (
-    event.eventType === "keyboardDidChangeFrame" &&
-    event.endCoordinates.height === 55
+    event.endCoordinates.height === minimized
   ) {
     updateKeyboardState("MINIMIZED");
     setKeyboardDimensions(event.endCoordinates);

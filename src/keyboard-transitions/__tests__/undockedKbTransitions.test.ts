@@ -1,3 +1,4 @@
+import { DeviceOrientation } from "../../device-dimensions/deviceDimensions";
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import undockedKeyboardHandler from "../undockedKbTransitions";
@@ -17,14 +18,17 @@ describe("#undockedKbTransitions", () => {
     updateKeyboardState = jest.fn();
   });
 
-  const doHandler = (event: IOSKeyboardEvent) => {
+  const doHandler = (
+    event: IOSKeyboardEvent,
+    orientation: DeviceOrientation = "landscape",
+  ) => {
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       setKeyboardDimensions,
       isSameKeyboardDimensions,
       currentState: "UNDOCKED",
-      deviceOrientation: "landscape",
+      deviceOrientation: orientation,
       deviceInformation: getIPadDeviceInformation(),
     };
     undockedKeyboardHandler(args);
@@ -38,7 +42,7 @@ describe("#undockedKbTransitions", () => {
 
   it("transits to DOCKED state (vertical)", () => {
     const event = createKeyboardEvent("keyboardDidShow", 313);
-    doHandler(event as IOSKeyboardEvent);
+    doHandler(event as IOSKeyboardEvent, "portrait");
     expect(updateKeyboardState).toHaveBeenCalledWith("DOCKED");
   });
 

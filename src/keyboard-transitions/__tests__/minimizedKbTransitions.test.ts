@@ -1,3 +1,4 @@
+import { DeviceOrientation } from "../../device-dimensions/deviceDimensions";
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import minimizedKeyboardHandler from "../minimizedKbTransitions";
@@ -17,14 +18,17 @@ describe("#minimizedKbTransitions", () => {
     updateKeyboardState = jest.fn();
   });
 
-  const doHandler = (event: IOSKeyboardEvent) => {
+  const doHandler = (
+    event: IOSKeyboardEvent,
+    orientation: DeviceOrientation = "landscape",
+  ) => {
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       setKeyboardDimensions,
       isSameKeyboardDimensions,
       currentState: "MINIMIZED",
-      deviceOrientation: "landscape",
+      deviceOrientation: orientation,
       deviceInformation: getIPadDeviceInformation(),
     };
     minimizedKeyboardHandler(args);
@@ -42,9 +46,9 @@ describe("#minimizedKbTransitions", () => {
     expect(updateKeyboardState).toHaveBeenCalledWith("UNDOCKED");
   });
 
-  it.only("transits to UNDOCKED state (vertical)", () => {
+  it("transits to UNDOCKED state (vertical)", () => {
     const event = createKeyboardEvent("keyboardDidChangeFrame", 313);
-    doHandler(event as IOSKeyboardEvent);
+    doHandler(event as IOSKeyboardEvent, "portrait");
     expect(updateKeyboardState).toHaveBeenCalledWith("UNDOCKED");
   });
 
