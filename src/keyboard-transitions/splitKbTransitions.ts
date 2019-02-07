@@ -21,6 +21,15 @@ const splitKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
   }
 
   if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 313
+  ) {
+    updateKeyboardState("UNDOCKED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
     event.eventType === "keyboardDidShow" &&
     event.endCoordinates.height === 55
   ) {

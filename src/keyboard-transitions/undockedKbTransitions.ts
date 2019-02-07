@@ -13,6 +13,15 @@ const undockedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
 
   if (
     event.eventType === "keyboardDidShow" &&
+    event.endCoordinates.height === 313
+  ) {
+    updateKeyboardState("DOCKED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidShow" &&
     event.endCoordinates.height === 55
   ) {
     updateKeyboardState("MINIMIZED");

@@ -31,6 +31,12 @@ describe("#undockedKbTransitions", () => {
     expect(updateKeyboardState).toHaveBeenCalledWith("DOCKED");
   });
 
+  it("transits to DOCKED state (vertical)", () => {
+    const event = createKeyboardEvent("keyboardDidShow", 313);
+    doHandler(event as IOSKeyboardEvent);
+    expect(updateKeyboardState).toHaveBeenCalledWith("DOCKED");
+  });
+
   it("transits to MINIMIZED state", () => {
     const event = createKeyboardEvent("keyboardDidShow", 55);
     doHandler(event as IOSKeyboardEvent);

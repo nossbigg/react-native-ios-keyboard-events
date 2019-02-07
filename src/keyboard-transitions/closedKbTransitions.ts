@@ -22,6 +22,15 @@ const closedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
 
   if (
     event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === 313
+  ) {
+    updateKeyboardState("UNDOCKED");
+    setKeyboardDimensions(event.endCoordinates);
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
     event.endCoordinates.height === 55
   ) {
     updateKeyboardState("MINIMIZED");

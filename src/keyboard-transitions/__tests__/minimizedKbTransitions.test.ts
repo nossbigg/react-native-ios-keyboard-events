@@ -37,6 +37,12 @@ describe("#minimizedKbTransitions", () => {
     expect(updateKeyboardState).toHaveBeenCalledWith("UNDOCKED");
   });
 
+  it("transits to UNDOCKED state (vertical)", () => {
+    const event = createKeyboardEvent("keyboardDidChangeFrame", 313);
+    doHandler(event as IOSKeyboardEvent);
+    expect(updateKeyboardState).toHaveBeenCalledWith("UNDOCKED");
+  });
+
   it("transits to SPLIT state", () => {
     const event = createKeyboardEvent("keyboardDidChangeFrame", 271);
     doHandler(event as IOSKeyboardEvent);
