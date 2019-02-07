@@ -1,7 +1,11 @@
+import { tabletDevices } from "../../device-dimensions/deviceDimensions";
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import closedKeyboardHandler from "../closedKbTransitions";
-import { createKeyboardEvent } from "./keyboardTransitionTestHelpers";
+import {
+  createKeyboardEvent,
+  getIPadDeviceInformation,
+} from "./keyboardTransitionTestHelpers";
 
 describe("#closedKbTransitions", () => {
   let setKeyboardDimensions: jest.Mock;
@@ -21,6 +25,8 @@ describe("#closedKbTransitions", () => {
       setKeyboardDimensions,
       isSameKeyboardDimensions,
       currentState: "CLOSED",
+      deviceOrientation: "landscape",
+      deviceInformation: getIPadDeviceInformation(),
     };
     closedKeyboardHandler(args);
   };

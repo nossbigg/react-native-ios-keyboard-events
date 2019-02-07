@@ -1,4 +1,8 @@
 import { ScreenRect } from "react-native";
+import {
+  DeviceOrientation,
+  IDeviceInformation,
+} from "./device-dimensions/deviceDimensions";
 import { IOSKeyboardEvent } from "./IOSKeyboardEvents";
 import closedKeyboardHandler from "./keyboard-transitions/closedKbTransitions";
 import dockedKeyboardHandler from "./keyboard-transitions/dockedKbTransitions";
@@ -22,6 +26,8 @@ export type KeyboardTransitionHandlerType = (
 export interface IKeyboardTransitionsArgs {
   currentState: KeyboardState;
   event: IOSKeyboardEvent;
+  deviceOrientation: DeviceOrientation;
+  deviceInformation: IDeviceInformation;
   setKeyboardDimensions(dimensions: ScreenRect | undefined): void;
   isSameKeyboardDimensions(dimensions: ScreenRect): boolean;
   updateKeyboardState(nextState: KeyboardState): void;

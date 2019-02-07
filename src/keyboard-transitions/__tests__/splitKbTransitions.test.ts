@@ -1,7 +1,10 @@
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import splitKeyboardHandler from "../splitKbTransitions";
-import { createKeyboardEvent } from "./keyboardTransitionTestHelpers";
+import {
+  createKeyboardEvent,
+  getIPadDeviceInformation,
+} from "./keyboardTransitionTestHelpers";
 
 describe("#splitKbTransitions", () => {
   let setKeyboardDimensions: jest.Mock;
@@ -21,6 +24,8 @@ describe("#splitKbTransitions", () => {
       setKeyboardDimensions,
       isSameKeyboardDimensions,
       currentState: "SPLIT",
+      deviceOrientation: "landscape",
+      deviceInformation: getIPadDeviceInformation(),
     };
     splitKeyboardHandler(args);
   };

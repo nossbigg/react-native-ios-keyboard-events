@@ -1,7 +1,10 @@
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import dockedKeyboardHandler from "../dockedKbTransitions";
-import { createKeyboardEvent } from "./keyboardTransitionTestHelpers";
+import {
+  createKeyboardEvent,
+  getIPadDeviceInformation,
+} from "./keyboardTransitionTestHelpers";
 
 describe("#dockedKbTransitions", () => {
   let setKeyboardDimensions: jest.Mock;
@@ -21,6 +24,8 @@ describe("#dockedKbTransitions", () => {
       setKeyboardDimensions,
       isSameKeyboardDimensions,
       currentState: "DOCKED",
+      deviceOrientation: "landscape",
+      deviceInformation: getIPadDeviceInformation(),
     };
     dockedKeyboardHandler(args);
   };

@@ -1,7 +1,10 @@
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import undockedKeyboardHandler from "../undockedKbTransitions";
-import { createKeyboardEvent } from "./keyboardTransitionTestHelpers";
+import {
+  createKeyboardEvent,
+  getIPadDeviceInformation,
+} from "./keyboardTransitionTestHelpers";
 
 describe("#undockedKbTransitions", () => {
   let setKeyboardDimensions: jest.Mock;
@@ -21,6 +24,8 @@ describe("#undockedKbTransitions", () => {
       setKeyboardDimensions,
       isSameKeyboardDimensions,
       currentState: "UNDOCKED",
+      deviceOrientation: "landscape",
+      deviceInformation: getIPadDeviceInformation(),
     };
     undockedKeyboardHandler(args);
   };

@@ -1,4 +1,8 @@
 import { KeyboardEventName } from "react-native";
+import {
+  IDeviceInformation,
+  tabletDevices,
+} from "../../device-dimensions/deviceDimensions";
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 
 export const createKeyboardEvent = (
@@ -10,3 +14,9 @@ export const createKeyboardEvent = (
     height: endCoordinatesHeight,
   } as any,
 });
+
+export const getIPadDeviceInformation = (): IDeviceInformation => {
+  return tabletDevices.find(
+    (d) => d.model === "iPad Air 2",
+  ) as IDeviceInformation;
+};

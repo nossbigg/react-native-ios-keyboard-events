@@ -7,6 +7,11 @@ import {
   KeyboardEventName,
   ScreenRect,
 } from "react-native";
+import {
+  getDeviceModel,
+  getDeviceOrientation,
+  IDeviceInformation,
+} from "./device-dimensions/deviceDimensions";
 import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
 import createTimer, {
   KeyboardTransitionTimer,
@@ -27,7 +32,7 @@ type ListenerCallback = (
   currentState: KeyboardState,
 ) => void;
 
-export default class IOSKeyboardEvents {
+export class IOSKeyboardEvents {
   public keyboardEventSubscriptions: EmitterSubscription[];
   public listeners: { [key: string]: ListenerCallback };
   public lastKeyboardEvent: IOSKeyboardEvent | undefined;
@@ -36,8 +41,9 @@ export default class IOSKeyboardEvents {
   public keyboardTransitionTimer: KeyboardTransitionTimer;
   public keyboardDimensions: ScreenRect | undefined;
   public keyboardEventQueue: Queue;
+  public deviceInformation: IDeviceInformation;
 
-  constructor() {
+  constructor(deviceModel: IDeviceInformation) {
     this.listeners = {};
     this.keyboardState = "CLOSED";
     this.lastKeyboardEvent = undefined;
@@ -45,6 +51,7 @@ export default class IOSKeyboardEvents {
     this.keyboardTransitionTimer = createTimer();
     this.keyboardDimensions = undefined;
     this.keyboardEventQueue = Queue({ concurrency: 1, autostart: true });
+    this.deviceInformation = deviceModel;
 
     this.keyboardEventSubscriptions = [];
     this.startKeyboardListeners();
@@ -88,6 +95,8 @@ export default class IOSKeyboardEvents {
       doKeyboardTransitions({
         currentState: this.keyboardState,
         event: keyboardEvent,
+        deviceOrientation: getDeviceOrientation(),
+        deviceInformation: this.deviceInformation,
         setKeyboardDimensions: this.setKeyboardDimensions,
         isSameKeyboardDimensions: this.isSameKeyboardDimensions,
         updateKeyboardState: this.updateKeyboardState,
@@ -120,3 +129,14 @@ export default class IOSKeyboardEvents {
     this.lastKeyboardState = this.keyboardState;
   }
 }
+
+const createIOSKeyboardEvents = () => {
+  const deviceModel = getDeviceModel();
+  if (!deviceModel) {
+    throw new Error("Unable to interpret device model from given dimensions");
+  }
+
+  return new IOSKeyboardEvents(deviceModel);
+};
+
+export default createIOSKeyboardEvents;

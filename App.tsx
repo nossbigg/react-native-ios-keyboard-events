@@ -9,41 +9,29 @@
 
 import React from "react";
 import {
-  StyleSheet,
-  TextInput,
   KeyboardAvoidingView,
-  Text
+  StyleSheet,
+  Text,
+  TextInput,
 } from "react-native";
-import IOSKeyboardEvents from "./src/IOSKeyboardEvents";
+import createIOSKeyboardEvents from "./src/IOSKeyboardEvents";
 import { KeyboardState } from "./src/keyboardTransitions";
 
-interface Props {}
-
-interface State {
+interface IState {
   currentKeyboardState: KeyboardState;
 }
 
-export default class App extends React.Component<Props, State> {
-  IOSKeyboardEventsListener = new IOSKeyboardEvents();
+export default class App extends React.Component<{}, IState> {
+  public IOSKeyboardEventsListener = createIOSKeyboardEvents();
 
-  constructor(props: Props) {
+  constructor(props: {}) {
     super(props);
     this.state = {
-      currentKeyboardState: "CLOSED"
+      currentKeyboardState: "CLOSED",
     };
   }
 
-  componentDidMount() {
-    this.IOSKeyboardEventsListener.addListener(
-      "keyboardListener",
-      (previousState, currentKeyboardState) => {
-        console.log("change", previousState, currentKeyboardState);
-        this.setState({ currentKeyboardState });
-      }
-    );
-  }
-
-  render() {
+  public render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
         <TextInput placeholder="Type here!" style={styles.textInput} />
@@ -52,7 +40,17 @@ export default class App extends React.Component<Props, State> {
     );
   }
 
-  componentWillUnmount() {
+  public componentDidMount() {
+    this.IOSKeyboardEventsListener.addListener(
+      "keyboardListener",
+      (previousState, currentKeyboardState) => {
+        console.log("change", previousState, currentKeyboardState);
+        this.setState({ currentKeyboardState });
+      },
+    );
+  }
+
+  public componentWillUnmount() {
     this.IOSKeyboardEventsListener.close();
   }
 }
@@ -62,12 +60,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   textInput: {
     borderWidth: 1,
     width: "90%",
     borderRadius: 5,
-    padding: 10
-  }
+    padding: 10,
+  },
 });
