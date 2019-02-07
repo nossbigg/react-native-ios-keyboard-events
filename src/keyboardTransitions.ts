@@ -1,10 +1,10 @@
 import { IOSKeyboardEvent } from "./IOSKeyboardEvents";
 import { ScreenRect } from "react-native";
-import closedKeyboardHandler from "./keyboard-transitions/closedKeyboardTransitions";
-import dockedKeyboardHandler from "./keyboard-transitions/dockedKeyboardTransitions";
-import undockedKeyboardHandler from "./keyboard-transitions/undockedKeyboardTransitions";
-import minimizedKeyboardHandler from "./keyboard-transitions/minimizedKeyboardTransitions";
-import splitKeyboardHandler from "./keyboard-transitions/splitKeyboardTransitions";
+import closedKeyboardHandler from "./keyboard-transitions/closedKbTransitions";
+import dockedKeyboardHandler from "./keyboard-transitions/dockedKbTransitions";
+import undockedKeyboardHandler from "./keyboard-transitions/undockedKbTransitions";
+import minimizedKeyboardHandler from "./keyboard-transitions/minimizedKbTransitions";
+import splitKeyboardHandler from "./keyboard-transitions/splitKbTransitions";
 
 export type KeyboardState =
   | "CLOSED"
@@ -19,7 +19,7 @@ export type KeyboardTransitionHandlerType = (
   args: KeyboardTransitionsArgs
 ) => void;
 
-interface KeyboardTransitionsArgs {
+export interface KeyboardTransitionsArgs {
   currentState: KeyboardState;
   event: IOSKeyboardEvent;
   setKeyboardDimensions(dimensions: ScreenRect | undefined): void;

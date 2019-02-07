@@ -8,6 +8,7 @@
     "start": "npm run ipad",
     "ipad": "react-native run-ios --simulator='iPad Air 2'",
     "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "tsc",
     "dist": "rm -rf dist && npm run lint && npm run test && tsc -p tsconfig-dist.json"
   },
@@ -31,9 +32,17 @@
     "react": "^16.6.3",
     "react-test-renderer": "16.6.3",
     "tslint": "^5.12.1",
+    "ts-jest": "^23.10.5",
     "typescript": "^3.2.4"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "clearMocks": true,
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testMatch": [
+      "**/?(*.)+(spec|test).[tj]s?(x)"
+    ]
   }
 }
