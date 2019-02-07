@@ -1,4 +1,5 @@
-import { IOSKeyboardEvent, ScreenRect } from "./IOSKeyboardEvents";
+import { IOSKeyboardEvent } from "./IOSKeyboardEvents";
+import { ScreenRect } from "react-native";
 
 export type KeyboardState =
   | "CLOSED"

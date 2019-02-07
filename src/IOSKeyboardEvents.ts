@@ -1,4 +1,4 @@
-import { Keyboard, EmitterSubscription } from "react-native";
+import { Keyboard, EmitterSubscription, ScreenRect, KeyboardEvent, KeyboardEventName } from "react-native";
 import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
 import _ from "lodash";
 import createTimer, {
@@ -6,36 +6,14 @@ import createTimer, {
 } from "./KeyboardTransitionTimer";
 import Queue from "queue";
 
-export type ScreenRect = {
-  screenX: number;
-  screenY: number;
-  width: number;
-  height: number;
-};
-
-interface KeyboardEvent {
-  duration: number;
-  easing: string;
-  endCoordinates: ScreenRect;
-  startCoordinates: ScreenRect;
-}
-
-type KeyboardEventType =
-  | "keyboardWillShow"
-  | "keyboardDidShow"
-  | "keyboardWillHide"
-  | "keyboardDidHide"
-  | "keyboardWillChangeFrame"
-  | "keyboardDidChangeFrame";
-
-const keyboardEvents: KeyboardEventType[] = [
+const keyboardEvents: KeyboardEventName[] = [
   "keyboardDidShow",
   "keyboardDidHide",
   "keyboardDidChangeFrame"
 ];
 
 export interface IOSKeyboardEvent extends KeyboardEvent {
-  eventType: KeyboardEventType;
+  eventType: KeyboardEventName;
 }
 
 type ListenerCallback = (
