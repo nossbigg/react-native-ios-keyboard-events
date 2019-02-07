@@ -10,9 +10,9 @@
     "iphone": "react-native run-ios --simulator='iPhone 8 Plus'",
     "test": "jest",
     "test:watch": "jest --watch",
-    "tslint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
+    "tslint": "tslint -c tslint.json -p tsconfig.json 'src/**/*.{ts,tsx}'",
     "lint": "tsc && npm run tslint",
-    "lint:fix": "prettier --write 'src/**/*.{ts,tsx}' && npm run tslint -- --fix",
+    "lint:fix": "tsc && prettier --write 'src/**/*.{ts,tsx}' && npm run tslint -- --fix",
     "dist": "rm -rf dist && npm run lint && npm run test && tsc -p tsconfig-dist.json"
   },
   "dependencies": {
