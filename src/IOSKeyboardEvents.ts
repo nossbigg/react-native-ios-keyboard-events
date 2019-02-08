@@ -63,6 +63,10 @@ export class IOSKeyboardEvents {
     this.listeners[listenerName] = callback;
   }
 
+  public removeListener(listenerName: string) {
+    delete this.listeners[listenerName];
+  }
+
   public close() {
     this.keyboardEventSubscriptions.forEach((subscription) =>
       subscription.remove(),
