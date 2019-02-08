@@ -6,6 +6,38 @@ Array [
     "isTablet": false,
     "keyboardDimensions": Object {
       "landscape": Object {
+        "docked": 199,
+      },
+      "portrait": Object {
+        "docked": 253,
+      },
+    },
+    "model": "iPhone 5s",
+    "screenDimensions": Set {
+      320,
+      568,
+    },
+  },
+  Object {
+    "isTablet": false,
+    "keyboardDimensions": Object {
+      "landscape": Object {
+        "docked": 200,
+      },
+      "portrait": Object {
+        "docked": 260,
+      },
+    },
+    "model": "iPhone 8",
+    "screenDimensions": Set {
+      375,
+      667,
+    },
+  },
+  Object {
+    "isTablet": false,
+    "keyboardDimensions": Object {
+      "landscape": Object {
         "docked": 200,
       },
       "portrait": Object {
@@ -16,6 +48,38 @@ Array [
     "screenDimensions": Set {
       414,
       736,
+    },
+  },
+  Object {
+    "isTablet": false,
+    "keyboardDimensions": Object {
+      "landscape": Object {
+        "docked": 209,
+      },
+      "portrait": Object {
+        "docked": 335,
+      },
+    },
+    "model": "iPhone X",
+    "screenDimensions": Set {
+      375,
+      812,
+    },
+  },
+  Object {
+    "isTablet": false,
+    "keyboardDimensions": Object {
+      "landscape": Object {
+        "docked": 209,
+      },
+      "portrait": Object {
+        "docked": 346,
+      },
+    },
+    "model": "iPhone XS Max",
+    "screenDimensions": Set {
+      414,
+      896,
     },
   },
 ]
