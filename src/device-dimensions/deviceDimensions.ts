@@ -29,9 +29,8 @@ export const getDeviceOrientation = (): DeviceOrientation => {
   return width > height ? "landscape" : "portrait";
 };
 
-export const getDeviceModel = () => {
+export const getDeviceModel = (): IDeviceInformation | undefined => {
   const { height, width } = Dimensions.get("window");
-
   return devices.find(
     (device) =>
       device.screenDimensions.has(width) && device.screenDimensions.has(height),
