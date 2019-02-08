@@ -5,6 +5,7 @@ import {
   Keyboard,
   KeyboardEvent,
   KeyboardEventName,
+  Platform,
 } from "react-native";
 import {
   getDeviceModel,
@@ -63,6 +64,11 @@ export class IOSKeyboardEvents {
       subscription.remove(),
     );
     this.listeners = {};
+    this.keyboardTransitionTimer.reset();
+  }
+
+  public getKeyboardState() {
+    return this.keyboardState;
   }
 
   private startKeyboardListeners() {
@@ -116,12 +122,18 @@ export class IOSKeyboardEvents {
 }
 
 const createIOSKeyboardEvents = () => {
+  if (getDevicePlatform() !== "ios") {
+    throw new Error("Library only supports iOS.");
+  }
+
   const deviceModel = getDeviceModel();
   if (!deviceModel) {
-    throw new Error("Unable to interpret device model from given dimensions");
+    throw new Error("Unable to interpret device model from given dimensions.");
   }
 
   return new IOSKeyboardEvents(deviceModel);
 };
+
+export const getDevicePlatform = () => Platform.OS;
 
 export default createIOSKeyboardEvents;
