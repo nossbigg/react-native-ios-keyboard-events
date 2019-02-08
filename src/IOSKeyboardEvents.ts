@@ -32,6 +32,10 @@ type ListenerCallback = (
   currentState: KeyboardState,
 ) => void;
 
+interface IOSKeyboardEventsOptions {
+  deviceModel?: IDeviceInformation;
+}
+
 export class IOSKeyboardEvents {
   public keyboardEventSubscriptions: EmitterSubscription[];
   public listeners: { [key: string]: ListenerCallback };
@@ -69,6 +73,10 @@ export class IOSKeyboardEvents {
 
   public getKeyboardState() {
     return this.keyboardState;
+  }
+
+  public getDeviceInformation() {
+    return this.deviceInformation;
   }
 
   private startKeyboardListeners() {
@@ -121,17 +129,18 @@ export class IOSKeyboardEvents {
   }
 }
 
-const createIOSKeyboardEvents = () => {
-  if (getDevicePlatform() !== "ios") {
+const createIOSKeyboardEvents = (options: IOSKeyboardEventsOptions = {}) => {
+  const { deviceModel } = options;
+  if (getDevicePlatform() !== "ios" && deviceModel === undefined) {
     throw new Error("Library only supports iOS.");
   }
 
-  const deviceModel = getDeviceModel();
-  if (!deviceModel) {
+  const foundDeviceModel = deviceModel || getDeviceModel();
+  if (!foundDeviceModel) {
     throw new Error("Unable to interpret device model from given dimensions.");
   }
 
-  return new IOSKeyboardEvents(deviceModel);
+  return new IOSKeyboardEvents(foundDeviceModel);
 };
 
 export const getDevicePlatform = () => Platform.OS;

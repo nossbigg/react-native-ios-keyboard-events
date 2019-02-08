@@ -6,12 +6,12 @@ export interface IDeviceInformation {
   model: string;
   isTablet: boolean;
   screenDimensions: Set<number>;
-  keyboardDimensions: keyboardDimensions;
+  keyboardDimensions: KeyboardDimensions;
 }
 
 export type DeviceOrientation = "landscape" | "portrait";
 
-type keyboardDimensions = {
+export type KeyboardDimensions = {
   [o in DeviceOrientation]: {
     docked: number;
     split?: number;

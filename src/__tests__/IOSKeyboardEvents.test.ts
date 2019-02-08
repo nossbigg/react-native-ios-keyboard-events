@@ -33,6 +33,8 @@ describe("#IOSKeyboardEvents", () => {
     expect(IOSKbEvents.getKeyboardState()).toBe("CLOSED");
   });
 
+  // it("gets current device informaiton", () => {});
+
   it("subscribes to keyboard events", () => {
     const expectedSubscribedEvents: KeyboardEventName[] = [
       "keyboardDidChangeFrame",
@@ -64,6 +66,20 @@ describe("#IOSKeyboardEvents", () => {
     it("throws error if unable to ascertain device model", () => {
       jest.spyOn(deviceDimensions, "getDeviceModel").mockReturnValue(undefined);
       expect(() => IOSKeyboardEventsImport.default()).toThrowError();
+    });
+
+    it("allows creation if device model is manually provided", () => {
+      jest.clearAllMocks();
+      const mockedDeviceModel = jest.fn();
+
+      jest
+        .spyOn(IOSKeyboardEventsImport, "getDevicePlatform")
+        .mockReturnValue("android");
+      const opts = { deviceModel: mockedDeviceModel as any };
+
+      const newKbEvents = IOSKeyboardEventsImport.default(opts);
+      expect(deviceDimensions.getDeviceModel).not.toHaveBeenCalled();
+      expect(newKbEvents.getDeviceInformation()).toBe(mockedDeviceModel);
     });
   });
 });
