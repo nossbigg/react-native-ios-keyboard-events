@@ -43,8 +43,8 @@ export default class App extends React.Component<{}, IState> {
         enabled={this.state.enabledAvoidingView}
       >
         <TextInput placeholder="Type here!" style={styles.textInput} />
-        <Text>Current Keyboard State:</Text>
-        <Text style={{ fontSize: 24 }}>{this.state.currentKeyboardState}</Text>
+        <Text style={{ fontSize: 18 }}>Current Keyboard State:</Text>
+        <Text style={{ fontSize: 64 }}>{this.state.currentKeyboardState}</Text>
       </KeyboardAvoidingView>
     );
   }
