@@ -19,6 +19,7 @@ import { KeyboardState } from "./src/keyboardTransitions";
 
 interface IState {
   currentKeyboardState: KeyboardState;
+  enabledAvoidingView: boolean;
 }
 
 export default class App extends React.Component<{}, IState> {
@@ -28,14 +29,20 @@ export default class App extends React.Component<{}, IState> {
     super(props);
     this.state = {
       currentKeyboardState: "CLOSED",
+      enabledAvoidingView: true,
     };
   }
 
   public render() {
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
+      <KeyboardAvoidingView
+        behavior="padding"
+        style={styles.container}
+        enabled={this.state.enabledAvoidingView}
+      >
         <TextInput placeholder="Type here!" style={styles.textInput} />
-        <Text>Current Keyboard State: {this.state.currentKeyboardState}</Text>
+        <Text>Current Keyboard State:</Text>
+        <Text style={{ fontSize: 24 }}>{this.state.currentKeyboardState}</Text>
       </KeyboardAvoidingView>
     );
   }
@@ -45,7 +52,11 @@ export default class App extends React.Component<{}, IState> {
       "keyboardListener",
       (newKeyboardState, previousState) => {
         console.log(`state change: ${previousState} -> ${newKeyboardState}`);
-        this.setState({ currentKeyboardState: newKeyboardState });
+        const enabledAvoidingView = newKeyboardState !== "SPLIT";
+        this.setState({
+          currentKeyboardState: newKeyboardState,
+          enabledAvoidingView,
+        });
       },
     );
   }
@@ -64,8 +75,9 @@ const styles = StyleSheet.create({
   },
   textInput: {
     borderWidth: 1,
-    width: "90%",
+    width: "30%",
     borderRadius: 5,
+    marginBottom: 10,
     padding: 10,
   },
 });
