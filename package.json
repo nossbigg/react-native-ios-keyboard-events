@@ -1,7 +1,8 @@
 {
   "name": "react-native-ios-keyboard-events",
   "version": "0.0.1",
-  "private": true,
+  "license": "MIT",
+  "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -40,6 +41,9 @@
     "tslint": "^5.12.1",
     "typescript": "^3.2.4"
   },
+  "files": [
+    "dist"
+  ],
   "jest": {
     "preset": "react-native",
     "clearMocks": true,
