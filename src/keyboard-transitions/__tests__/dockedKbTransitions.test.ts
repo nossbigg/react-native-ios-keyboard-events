@@ -3,7 +3,7 @@ import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import dockedKeyboardHandler from "../dockedKbTransitions";
 import {
   createKeyboardEvent,
-  getIPadDeviceInformation,
+  getIPadDeviceModel,
 } from "./keyboardTransitionTestHelpers";
 
 describe("#dockedKbTransitions", () => {
@@ -19,7 +19,7 @@ describe("#dockedKbTransitions", () => {
       event,
       currentState: "DOCKED",
       deviceOrientation: "landscape",
-      deviceInformation: getIPadDeviceInformation(),
+      deviceModel: getIPadDeviceModel(),
     };
     dockedKeyboardHandler(args);
   };

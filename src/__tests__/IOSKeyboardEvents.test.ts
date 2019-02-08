@@ -34,7 +34,7 @@ describe("#IOSKeyboardEvents", () => {
   });
 
   it("gets current device information", () => {
-    expect(IOSKbEvents.getDeviceInformation()).toBe(deviceModel);
+    expect(IOSKbEvents.getDeviceModelInformation()).toBe(deviceModel);
   });
 
   it("subscribes to keyboard events", () => {
@@ -81,7 +81,7 @@ describe("#IOSKeyboardEvents", () => {
 
       const newKbEvents = IOSKeyboardEventsImport.default(opts);
       expect(deviceDimensions.getDeviceModel).not.toHaveBeenCalled();
-      expect(newKbEvents.getDeviceInformation()).toBe(mockedDeviceModel);
+      expect(newKbEvents.getDeviceModelInformation()).toBe(mockedDeviceModel);
     });
   });
 });

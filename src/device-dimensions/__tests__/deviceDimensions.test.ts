@@ -2,7 +2,7 @@ import { Dimensions, ScaledSize } from "react-native";
 import {
   getDeviceModel,
   getDeviceOrientation,
-  IDeviceInformation,
+  IDeviceModel,
 } from "../deviceDimensions";
 import phoneDevices from "../phoneDevices";
 import tabletDevices from "../tabletDevices";
@@ -41,7 +41,7 @@ describe("#deviceDimensions", () => {
   it("gets device model", () => {
     mockDimensionsGet(1024, 768);
 
-    const deviceModel = getDeviceModel() as IDeviceInformation;
+    const deviceModel = getDeviceModel() as IDeviceModel;
     expect(deviceModel.model).toEqual("iPad Air");
     expect(Dimensions.get).toHaveBeenCalledWith("window");
   });

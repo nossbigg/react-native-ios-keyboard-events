@@ -4,7 +4,7 @@ import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import splitKeyboardHandler from "../splitKbTransitions";
 import {
   createKeyboardEvent,
-  getIPadDeviceInformation,
+  getIPadDeviceModel,
 } from "./keyboardTransitionTestHelpers";
 
 describe("#splitKbTransitions", () => {
@@ -23,7 +23,7 @@ describe("#splitKbTransitions", () => {
       event,
       currentState: "SPLIT",
       deviceOrientation: orientation,
-      deviceInformation: getIPadDeviceInformation(),
+      deviceModel: getIPadDeviceModel(),
     };
     splitKeyboardHandler(args);
   };

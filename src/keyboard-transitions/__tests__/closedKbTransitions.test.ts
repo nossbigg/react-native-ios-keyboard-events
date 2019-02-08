@@ -4,7 +4,7 @@ import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import closedKeyboardHandler from "../closedKbTransitions";
 import {
   createKeyboardEvent,
-  getIPadDeviceInformation,
+  getIPadDeviceModel,
 } from "./keyboardTransitionTestHelpers";
 
 describe("#closedKbTransitions", () => {
@@ -23,7 +23,7 @@ describe("#closedKbTransitions", () => {
       event,
       currentState: "CLOSED",
       deviceOrientation: orientation,
-      deviceInformation: getIPadDeviceInformation(),
+      deviceModel: getIPadDeviceModel(),
     };
     closedKeyboardHandler(args);
   };

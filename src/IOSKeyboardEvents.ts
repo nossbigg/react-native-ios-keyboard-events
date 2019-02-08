@@ -10,7 +10,7 @@ import {
 import {
   getDeviceModel,
   getDeviceOrientation,
-  IDeviceInformation,
+  IDeviceModel,
 } from "./device-dimensions/deviceDimensions";
 import doKeyboardTransitions, { KeyboardState } from "./keyboardTransitions";
 import createTimer, {
@@ -33,7 +33,7 @@ type ListenerCallback = (
 ) => void;
 
 interface IOSKeyboardEventsOptions {
-  deviceModel?: IDeviceInformation;
+  deviceModel?: IDeviceModel;
 }
 
 export class IOSKeyboardEvents {
@@ -44,16 +44,16 @@ export class IOSKeyboardEvents {
   public keyboardState: KeyboardState;
   public keyboardTransitionTimer: KeyboardTransitionTimer;
   public keyboardEventQueue: Queue;
-  public deviceInformation: IDeviceInformation;
+  public deviceModel: IDeviceModel;
 
-  constructor(deviceModel: IDeviceInformation) {
+  constructor(deviceModel: IDeviceModel) {
     this.listeners = {};
     this.keyboardState = "CLOSED";
     this.lastKeyboardEvent = undefined;
     this.lastKeyboardState = "CLOSED";
     this.keyboardTransitionTimer = createTimer();
     this.keyboardEventQueue = Queue({ concurrency: 1, autostart: true });
-    this.deviceInformation = deviceModel;
+    this.deviceModel = deviceModel;
 
     this.keyboardEventSubscriptions = [];
     this.startKeyboardListeners();
@@ -75,8 +75,8 @@ export class IOSKeyboardEvents {
     return this.keyboardState;
   }
 
-  public getDeviceInformation() {
-    return this.deviceInformation;
+  public getDeviceModelInformation() {
+    return this.deviceModel;
   }
 
   private startKeyboardListeners() {
@@ -106,7 +106,7 @@ export class IOSKeyboardEvents {
         currentState: this.keyboardState,
         event: keyboardEvent,
         deviceOrientation: getDeviceOrientation(),
-        deviceInformation: this.deviceInformation,
+        deviceModel: this.deviceModel,
         updateKeyboardState: this.updateKeyboardState,
       });
     });

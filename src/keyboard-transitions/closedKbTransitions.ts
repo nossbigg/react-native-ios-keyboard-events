@@ -1,13 +1,8 @@
 import { KeyboardTransitionHandlerType } from "../keyboardTransitions";
 
 const closedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
-  const {
-    event,
-    updateKeyboardState,
-    deviceOrientation,
-    deviceInformation,
-  } = args;
-  const { split, docked, minimized } = deviceInformation.keyboardDimensions[
+  const { event, updateKeyboardState, deviceOrientation, deviceModel } = args;
+  const { split, docked, minimized } = deviceModel.keyboardDimensions[
     deviceOrientation
   ];
 

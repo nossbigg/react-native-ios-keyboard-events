@@ -2,7 +2,7 @@ import { Dimensions } from "react-native";
 import phoneDevices from "./phoneDevices";
 import tabletDevices from "./tabletDevices";
 
-export interface IDeviceInformation {
+export interface IDeviceModel {
   model: string;
   isTablet: boolean;
   screenDimensions: Set<number>;
@@ -19,17 +19,14 @@ export type KeyboardDimensions = {
   }
 };
 
-export const devices: IDeviceInformation[] = [
-  ...phoneDevices,
-  ...tabletDevices,
-];
+export const devices: IDeviceModel[] = [...phoneDevices, ...tabletDevices];
 
 export const getDeviceOrientation = (): DeviceOrientation => {
   const { height, width } = Dimensions.get("window");
   return width > height ? "landscape" : "portrait";
 };
 
-export const getDeviceModel = (): IDeviceInformation | undefined => {
+export const getDeviceModel = (): IDeviceModel | undefined => {
   const { height, width } = Dimensions.get("window");
   return devices.find(
     (device) =>

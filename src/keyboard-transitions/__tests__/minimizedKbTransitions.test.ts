@@ -4,7 +4,7 @@ import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import minimizedKeyboardHandler from "../minimizedKbTransitions";
 import {
   createKeyboardEvent,
-  getIPadDeviceInformation,
+  getIPadDeviceModel,
 } from "./keyboardTransitionTestHelpers";
 
 describe("#minimizedKbTransitions", () => {
@@ -23,7 +23,7 @@ describe("#minimizedKbTransitions", () => {
       event,
       currentState: "MINIMIZED",
       deviceOrientation: orientation,
-      deviceInformation: getIPadDeviceInformation(),
+      deviceModel: getIPadDeviceModel(),
     };
     minimizedKeyboardHandler(args);
   };

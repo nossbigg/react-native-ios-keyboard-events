@@ -4,7 +4,7 @@ import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
 import undockedKeyboardHandler from "../undockedKbTransitions";
 import {
   createKeyboardEvent,
-  getIPadDeviceInformation,
+  getIPadDeviceModel,
 } from "./keyboardTransitionTestHelpers";
 
 describe("#undockedKbTransitions", () => {
@@ -23,7 +23,7 @@ describe("#undockedKbTransitions", () => {
       event,
       currentState: "UNDOCKED",
       deviceOrientation: orientation,
-      deviceInformation: getIPadDeviceInformation(),
+      deviceModel: getIPadDeviceModel(),
     };
     undockedKeyboardHandler(args);
   };
