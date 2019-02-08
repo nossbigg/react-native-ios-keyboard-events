@@ -28,8 +28,8 @@ export interface IOSKeyboardEvent extends KeyboardEvent {
 }
 
 type ListenerCallback = (
-  previousState: KeyboardState,
   currentState: KeyboardState,
+  previousState: KeyboardState,
 ) => void;
 
 interface IOSKeyboardEventsOptions {
@@ -121,7 +121,7 @@ export class IOSKeyboardEvents {
 
   private updateListeners() {
     Object.values(this.listeners).forEach((callback) =>
-      callback(this.lastKeyboardState, this.keyboardState),
+      callback(this.keyboardState, this.lastKeyboardState),
     );
     this.lastKeyboardState = this.keyboardState;
   }

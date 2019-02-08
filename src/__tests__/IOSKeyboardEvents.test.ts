@@ -33,7 +33,9 @@ describe("#IOSKeyboardEvents", () => {
     expect(IOSKbEvents.getKeyboardState()).toBe("CLOSED");
   });
 
-  // it("gets current device informaiton", () => {});
+  it("gets current device information", () => {
+    expect(IOSKbEvents.getDeviceInformation()).toBe(deviceModel);
+  });
 
   it("subscribes to keyboard events", () => {
     const expectedSubscribedEvents: KeyboardEventName[] = [
