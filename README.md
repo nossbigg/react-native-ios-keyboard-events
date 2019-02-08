@@ -4,6 +4,8 @@
 
 Especially useful if you need to detect a split keyboard on an iPad (so that you can make UI adjustments to accomodate it)
 
+![GIF Demo of library](demo/library-demo.gif)
+
 ## Usage (tldr)
 
 1. Install the library
