@@ -5,7 +5,6 @@ import {
   Keyboard,
   KeyboardEvent,
   KeyboardEventName,
-  ScreenRect,
 } from "react-native";
 import {
   getDeviceModel,
@@ -39,7 +38,6 @@ export class IOSKeyboardEvents {
   public lastKeyboardState: KeyboardState;
   public keyboardState: KeyboardState;
   public keyboardTransitionTimer: KeyboardTransitionTimer;
-  public keyboardDimensions: ScreenRect | undefined;
   public keyboardEventQueue: Queue;
   public deviceInformation: IDeviceInformation;
 
@@ -49,7 +47,6 @@ export class IOSKeyboardEvents {
     this.lastKeyboardEvent = undefined;
     this.lastKeyboardState = "CLOSED";
     this.keyboardTransitionTimer = createTimer();
-    this.keyboardDimensions = undefined;
     this.keyboardEventQueue = Queue({ concurrency: 1, autostart: true });
     this.deviceInformation = deviceModel;
 
@@ -97,21 +94,9 @@ export class IOSKeyboardEvents {
         event: keyboardEvent,
         deviceOrientation: getDeviceOrientation(),
         deviceInformation: this.deviceInformation,
-        setKeyboardDimensions: this.setKeyboardDimensions,
-        isSameKeyboardDimensions: this.isSameKeyboardDimensions,
         updateKeyboardState: this.updateKeyboardState,
       });
     });
-  }
-
-  private setKeyboardDimensions = (
-    dimensions: ScreenRect | undefined,
-  ): void => {
-    this.keyboardDimensions = dimensions;
-  }
-
-  private isSameKeyboardDimensions = (dimensions: ScreenRect): boolean => {
-    return _.isEqual(this.keyboardDimensions, dimensions);
   }
 
   private updateKeyboardState = (nextState: KeyboardState) => {

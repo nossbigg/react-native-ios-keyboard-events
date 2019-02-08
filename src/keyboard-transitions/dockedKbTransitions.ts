@@ -4,14 +4,12 @@ const dockedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
   const {
     event,
     updateKeyboardState,
-    setKeyboardDimensions,
     deviceInformation,
     deviceOrientation,
   } = args;
 
   if (event.eventType === "keyboardDidHide") {
     updateKeyboardState("CLOSED");
-    setKeyboardDimensions(undefined);
     return;
   }
 
@@ -21,7 +19,6 @@ const dockedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
       deviceInformation.keyboardDimensions[deviceOrientation].minimized
   ) {
     updateKeyboardState("MINIMIZED");
-    setKeyboardDimensions(event.endCoordinates);
     return;
   }
 };

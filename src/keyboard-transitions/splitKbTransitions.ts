@@ -4,7 +4,6 @@ const splitKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
   const {
     event,
     updateKeyboardState,
-    setKeyboardDimensions,
     deviceInformation,
     deviceOrientation,
   } = args;
@@ -17,7 +16,6 @@ const splitKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
     event.endCoordinates.height === 0
   ) {
     updateKeyboardState("CLOSED");
-    setKeyboardDimensions(undefined);
     return;
   }
 
@@ -26,7 +24,6 @@ const splitKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
     event.endCoordinates.height === docked
   ) {
     updateKeyboardState("UNDOCKED");
-    setKeyboardDimensions(event.endCoordinates);
     return;
   }
 
@@ -35,7 +32,6 @@ const splitKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
     event.endCoordinates.height === minimized
   ) {
     updateKeyboardState("MINIMIZED");
-    setKeyboardDimensions(event.endCoordinates);
     return;
   }
 };

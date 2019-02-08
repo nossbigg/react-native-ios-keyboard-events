@@ -8,13 +8,9 @@ import {
 } from "./keyboardTransitionTestHelpers";
 
 describe("#splitKbTransitions", () => {
-  let setKeyboardDimensions: jest.Mock;
-  let isSameKeyboardDimensions: jest.Mock;
   let updateKeyboardState: jest.Mock;
 
   beforeEach(() => {
-    setKeyboardDimensions = jest.fn();
-    isSameKeyboardDimensions = jest.fn();
     updateKeyboardState = jest.fn();
   });
 
@@ -25,8 +21,6 @@ describe("#splitKbTransitions", () => {
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
-      setKeyboardDimensions,
-      isSameKeyboardDimensions,
       currentState: "SPLIT",
       deviceOrientation: orientation,
       deviceInformation: getIPadDeviceInformation(),

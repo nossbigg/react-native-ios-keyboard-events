@@ -1,4 +1,3 @@
-import { ScreenRect } from "react-native";
 import {
   DeviceOrientation,
   IDeviceInformation,
@@ -28,8 +27,6 @@ export interface IKeyboardTransitionsArgs {
   event: IOSKeyboardEvent;
   deviceOrientation: DeviceOrientation;
   deviceInformation: IDeviceInformation;
-  setKeyboardDimensions(dimensions: ScreenRect | undefined): void;
-  isSameKeyboardDimensions(dimensions: ScreenRect): boolean;
   updateKeyboardState(nextState: KeyboardState): void;
 }
 

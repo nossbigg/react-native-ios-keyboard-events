@@ -7,13 +7,9 @@ import {
 } from "./keyboardTransitionTestHelpers";
 
 describe("#dockedKbTransitions", () => {
-  let setKeyboardDimensions: jest.Mock;
-  let isSameKeyboardDimensions: jest.Mock;
   let updateKeyboardState: jest.Mock;
 
   beforeEach(() => {
-    setKeyboardDimensions = jest.fn();
-    isSameKeyboardDimensions = jest.fn();
     updateKeyboardState = jest.fn();
   });
 
@@ -21,8 +17,6 @@ describe("#dockedKbTransitions", () => {
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
-      setKeyboardDimensions,
-      isSameKeyboardDimensions,
       currentState: "DOCKED",
       deviceOrientation: "landscape",
       deviceInformation: getIPadDeviceInformation(),
