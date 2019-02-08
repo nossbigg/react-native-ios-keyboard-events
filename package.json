@@ -16,14 +16,15 @@
     "dist": "rm -rf dist && npm run lint && npm run test && tsc -p tsconfig-dist.json"
   },
   "dependencies": {
+    "deep-equal": "^1.0.1",
     "events": "^3.0.0",
     "queue": "^5.0.0",
     "react-native": "0.58.1"
   },
   "devDependencies": {
+    "@types/deep-equal": "^1.0.1",
     "@types/events": "^3.0.0",
     "@types/jest": "^23.3.13",
-    "@types/lodash": "^4.14.120",
     "@types/react": "^16.7.21",
     "@types/react-native": "^0.57.34",
     "@types/react-test-renderer": "^16.0.3",
@@ -35,8 +36,8 @@
     "prettier": "^1.16.1",
     "react": "^16.6.3",
     "react-test-renderer": "16.6.3",
-    "tslint": "^5.12.1",
     "ts-jest": "^23.10.5",
+    "tslint": "^5.12.1",
     "typescript": "^3.2.4"
   },
   "jest": {

@@ -1,4 +1,4 @@
-import _ from "lodash";
+import equal from "deep-equal";
 import Queue from "queue";
 import {
   EmitterSubscription,
@@ -81,7 +81,7 @@ export class IOSKeyboardEvents {
   }
 
   private onKeyboardEvent(keyboardEvent: IOSKeyboardEvent) {
-    const isDuplicateEvent = _.isEqual(keyboardEvent, this.lastKeyboardEvent);
+    const isDuplicateEvent = equal(keyboardEvent, this.lastKeyboardEvent);
     if (isDuplicateEvent) {
       return;
     }
