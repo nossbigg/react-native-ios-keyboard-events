@@ -44,7 +44,7 @@ export default class App extends React.Component<{}, IState> {
     this.IOSKeyboardEventsListener.addListener(
       "keyboardListener",
       (previousState, currentKeyboardState) => {
-        console.log("change", previousState, currentKeyboardState);
+        console.log("state change:", previousState, currentKeyboardState);
         this.setState({ currentKeyboardState });
       },
     );

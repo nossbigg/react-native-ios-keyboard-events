@@ -101,7 +101,6 @@ export class IOSKeyboardEvents {
     }
 
     this.lastKeyboardEvent = keyboardEvent;
-    console.log(keyboardEvent);
     this.keyboardEventQueue.push(async () => {
       doKeyboardTransitions({
         currentState: this.keyboardState,
@@ -114,7 +113,6 @@ export class IOSKeyboardEvents {
   }
 
   private updateKeyboardState = (nextState: KeyboardState) => {
-    console.log("updateKeyboard", nextState);
     this.keyboardState = nextState;
     this.keyboardTransitionTimer.set(() => {
       this.updateListeners();
