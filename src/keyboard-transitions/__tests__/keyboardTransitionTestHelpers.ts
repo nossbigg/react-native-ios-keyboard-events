@@ -17,6 +17,6 @@ export const createKeyboardEvent = (
 
 export const getIPadDeviceInformation = (): IDeviceInformation => {
   return tabletDevices.find(
-    (d) => d.model === "iPad Air 2",
+    (d) => d.model === "iPad Air",
   ) as IDeviceInformation;
 };
