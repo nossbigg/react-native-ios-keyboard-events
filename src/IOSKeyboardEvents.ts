@@ -34,6 +34,7 @@ type ListenerCallback = (
 
 interface IOSKeyboardEventsOptions {
   deviceModel?: IDeviceModel;
+  keyboardEventDebounceTime?: number;
 }
 
 export class IOSKeyboardEvents {
@@ -44,15 +45,17 @@ export class IOSKeyboardEvents {
   public keyboardState: KeyboardState;
   public keyboardTransitionTimer: KeyboardTransitionTimer;
   public keyboardEventQueue: Queue;
+  public keyboardEventDebounceTime: number;
   public deviceModel: IDeviceModel;
 
-  constructor(deviceModel: IDeviceModel) {
+  constructor(deviceModel: IDeviceModel, keyboardEventDebounceTime: number) {
     this.listeners = {};
     this.keyboardState = "CLOSED";
     this.lastKeyboardEvent = undefined;
     this.lastKeyboardState = "CLOSED";
     this.keyboardTransitionTimer = createTimer();
     this.keyboardEventQueue = Queue({ concurrency: 1, autostart: true });
+    this.keyboardEventDebounceTime = keyboardEventDebounceTime;
     this.deviceModel = deviceModel;
 
     this.keyboardEventSubscriptions = [];
@@ -120,7 +123,7 @@ export class IOSKeyboardEvents {
     this.keyboardState = nextState;
     this.keyboardTransitionTimer.set(() => {
       this.updateListeners();
-    }, 50);
+    }, this.keyboardEventDebounceTime);
   }
 
   private updateListeners() {
@@ -132,10 +135,10 @@ export class IOSKeyboardEvents {
 }
 
 const createIOSKeyboardEvents = (options: IOSKeyboardEventsOptions = {}) => {
-  const { deviceModel } = options;
+  const { deviceModel, keyboardEventDebounceTime = 100 } = options;
 
   if (deviceModel) {
-    return new IOSKeyboardEvents(deviceModel);
+    return new IOSKeyboardEvents(deviceModel, keyboardEventDebounceTime);
   }
 
   if (getDevicePlatform() !== "ios") {
@@ -147,7 +150,7 @@ const createIOSKeyboardEvents = (options: IOSKeyboardEventsOptions = {}) => {
     throw new Error("Unable to interpret device model from given dimensions.");
   }
 
-  return new IOSKeyboardEvents(foundDeviceModel);
+  return new IOSKeyboardEvents(foundDeviceModel, keyboardEventDebounceTime);
 };
 
 export const getDevicePlatform = () => Platform.OS;

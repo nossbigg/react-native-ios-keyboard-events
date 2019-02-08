@@ -23,7 +23,9 @@ interface IState {
 }
 
 export default class App extends React.Component<{}, IState> {
-  public IOSKeyboardEventsListener = createIOSKeyboardEvents();
+  public IOSKeyboardEventsListener = createIOSKeyboardEvents({
+    keyboardEventDebounceTime: 50,
+  });
 
   constructor(props: {}) {
     super(props);
