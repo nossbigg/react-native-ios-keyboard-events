@@ -32,7 +32,7 @@ type ListenerCallback = (
   previousState: KeyboardState,
 ) => void;
 
-interface IOSKeyboardEventsOptions {
+export interface IOSKeyboardEventsOptions {
   deviceModel?: IDeviceModel;
   keyboardEventDebounceTime?: number;
 }
