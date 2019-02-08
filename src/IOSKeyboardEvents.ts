@@ -129,11 +129,16 @@ export class IOSKeyboardEvents {
 
 const createIOSKeyboardEvents = (options: IOSKeyboardEventsOptions = {}) => {
   const { deviceModel } = options;
-  if (getDevicePlatform() !== "ios" && deviceModel === undefined) {
+
+  if (deviceModel) {
+    return new IOSKeyboardEvents(deviceModel);
+  }
+
+  if (getDevicePlatform() !== "ios") {
     throw new Error("Library only supports iOS.");
   }
 
-  const foundDeviceModel = deviceModel || getDeviceModel();
+  const foundDeviceModel = getDeviceModel();
   if (!foundDeviceModel) {
     throw new Error("Unable to interpret device model from given dimensions.");
   }
