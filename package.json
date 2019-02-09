@@ -19,8 +19,11 @@
   "dependencies": {
     "deep-equal": "^1.0.1",
     "events": "^3.0.0",
-    "queue": "^5.0.0",
-    "react-native": "0.58.1"
+    "queue": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.6.3",
+    "react-native": ">=0.58.1"
   },
   "devDependencies": {
     "@types/deep-equal": "^1.0.1",
