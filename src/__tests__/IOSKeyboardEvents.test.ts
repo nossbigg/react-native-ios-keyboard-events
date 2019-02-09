@@ -29,8 +29,26 @@ describe("#IOSKeyboardEvents", () => {
     expect(IOSKbEvents).not.toBeFalsy();
   });
 
-  it("starts with default CLOSED state", () => {
-    expect(IOSKbEvents.getKeyboardState()).toBe("CLOSED");
+  describe("get/set keyboard state", () => {
+    it("starts with default CLOSED state", () => {
+      expect(IOSKbEvents.getKeyboardState()).toBe("CLOSED");
+    });
+
+    it("sets keyboard state", () => {
+      IOSKbEvents.setKeyboardState("SPLIT");
+      expect(IOSKbEvents.getKeyboardState()).toBe("SPLIT");
+    });
+
+    it("converts input state to uppercase", () => {
+      IOSKbEvents.setKeyboardState("split" as any);
+      expect(IOSKbEvents.getKeyboardState()).toBe("SPLIT");
+    });
+
+    it("throws error if attempting to set invalid keyboard state", () => {
+      expect(() =>
+        IOSKbEvents.setKeyboardState("some-invalid-keyboard" as any),
+      ).toThrowError();
+    });
   });
 
   it("gets current device information", () => {

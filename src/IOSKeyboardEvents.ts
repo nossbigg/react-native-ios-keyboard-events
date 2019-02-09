@@ -23,6 +23,14 @@ const keyboardEvents: KeyboardEventName[] = [
   "keyboardDidChangeFrame",
 ];
 
+const validKeyboardStates: KeyboardState[] = [
+  "CLOSED",
+  "DOCKED",
+  "UNDOCKED",
+  "SPLIT",
+  "MINIMIZED",
+];
+
 export interface IOSKeyboardEvent extends KeyboardEvent {
   eventType: KeyboardEventName;
 }
@@ -76,6 +84,15 @@ export class IOSKeyboardEvents {
     );
     this.listeners = {};
     this.keyboardTransitionTimer.reset();
+  }
+
+  public setKeyboardState(newKeyboardState: KeyboardState) {
+    const newState = newKeyboardState.toUpperCase();
+    if (!validKeyboardStates.includes(newState as any)) {
+      throw new Error("Invalid new keyboard state.");
+    }
+
+    this.updateKeyboardState(newState as KeyboardState);
   }
 
   public getKeyboardState() {

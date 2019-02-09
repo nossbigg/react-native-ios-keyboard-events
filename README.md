@@ -74,13 +74,19 @@ Gracefully closes the `IOSKeyboardEvents` instance by unsubscribing from keyboar
 
 Returns the present keyboard state.
 
-Possible states:
+Possible `KeyboardState`s:
 
 - `CLOSED`
 - `MINIMIZED`
 - `DOCKED`
 - `UNDOCKED`
 - `SPLIT`
+
+#### `.setKeyboardState(newKeyboardState: KeyboardState)`
+
+Sets the preset keyboard state. Use it if for one reason or another the `IOSKeyboardEvents` instance's internal state is inconsistent with the actual keyboard state. (eg. Keyboard is `MINIMIZED` but instance reports as the keyboard being `DOCKED`).
+
+Throws an error if input is not a `KeyboardState` value.
 
 #### `.getDeviceModelInformation()`
 
