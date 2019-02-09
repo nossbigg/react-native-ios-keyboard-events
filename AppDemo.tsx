@@ -19,19 +19,17 @@ import { KeyboardState } from "./src/keyboardTransitions";
 
 interface IState {
   currentKeyboardState: KeyboardState;
-  enabledAvoidingView: boolean;
 }
 
-export default class App extends React.Component<{}, IState> {
-  public IOSKeyboardEventsListener = createIOSKeyboardEvents({
+export default class AppDemo extends React.Component<{}, IState> {
+  private IOSKbEvents = createIOSKeyboardEvents({
     keyboardEventDebounceTime: 50,
   });
 
   constructor(props: {}) {
     super(props);
     this.state = {
-      currentKeyboardState: "CLOSED",
-      enabledAvoidingView: true,
+      currentKeyboardState: this.IOSKbEvents.getKeyboardState(),
     };
   }
 
@@ -40,7 +38,7 @@ export default class App extends React.Component<{}, IState> {
       <KeyboardAvoidingView
         behavior="padding"
         style={styles.container}
-        enabled={this.state.enabledAvoidingView}
+        enabled={this.state.currentKeyboardState !== "SPLIT"}
       >
         <TextInput placeholder="Type here!" style={styles.textInput} />
         <Text style={{ fontSize: 18 }}>Current Keyboard State:</Text>
@@ -50,21 +48,19 @@ export default class App extends React.Component<{}, IState> {
   }
 
   public componentDidMount() {
-    this.IOSKeyboardEventsListener.addListener(
+    this.IOSKbEvents.addListener(
       "keyboardListener",
       (newKeyboardState, previousState) => {
         console.log(`state change: ${previousState} -> ${newKeyboardState}`);
-        const enabledAvoidingView = newKeyboardState !== "SPLIT";
         this.setState({
           currentKeyboardState: newKeyboardState,
-          enabledAvoidingView,
         });
       },
     );
   }
 
   public componentWillUnmount() {
-    this.IOSKeyboardEventsListener.close();
+    this.IOSKbEvents.close();
   }
 }
 

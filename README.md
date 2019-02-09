@@ -4,7 +4,10 @@
 
 Especially useful if you need to detect a split keyboard on an iPad (so that you can make UI adjustments to accomodate it)
 
+Works _✨nicely✨_ with `KeyboardAvoidingView` 👍🏻
+
 ![GIF Demo of library](demo/library-demo.gif)
+Example: [AppDemo.tsx](AppDemo.tsx)
 
 ## Usage (tldr)
 
@@ -17,6 +20,7 @@ npm install react-native-ios-keyboard-events
 2. Create an `IOSKeyboardEvents` instance
 
 ```javascript
+import { createIOSKeyboardEvents } from "react-native-ios-keyboard-events";
 const IOSKbEvents = createIOSKeyboardEvents();
 ```
 
