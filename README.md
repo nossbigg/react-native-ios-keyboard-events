@@ -1,6 +1,6 @@
 # react-native-ios-keyboard-events
 
-**A library to detect an iOS device's keyboard state.**
+**A `react-native` library to detect an Apple iOS device's keyboard state.**
 
 Especially useful if you need to detect a split keyboard on an iPad (so that you can make UI adjustments to accomodate it)
 

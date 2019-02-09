@@ -46,10 +46,11 @@
   ],
   "keywords": [
     "react-native",
-    "keyboard",
     "ios",
+    "keyboard",
+    "events",
     "split",
-    "events"
+    "apple"
   ],
   "jest": {
     "preset": "react-native",
