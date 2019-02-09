@@ -7,6 +7,7 @@ Especially useful if you need to detect a split keyboard on an iPad (so that you
 Works _✨nicely✨_ with `KeyboardAvoidingView` 👍🏻
 
 ![GIF Demo of library](demo/library-demo.gif)
+
 Example: [AppDemo.tsx](AppDemo.tsx)
 
 ## Usage (tldr)
