@@ -103,6 +103,7 @@ Returns the matched detected device. (or manually-defined `IDeviceModel` object)
 
 - `iOS` only
 - `React Native` >= 0.58.1
+- Also works for iPhone-only apps on iPad
 
 ### Supported Devices
 

@@ -5,6 +5,7 @@ import closedKeyboardHandler from "../closedKbTransitions";
 import {
   createKeyboardEvent,
   getIPadDeviceModel,
+  getIPhoneDeviceModel,
 } from "./keyboardTransitionTestHelpers";
 
 describe("#closedKbTransitions", () => {
@@ -17,13 +18,14 @@ describe("#closedKbTransitions", () => {
   const doHandler = (
     event: IOSKeyboardEvent,
     orientation: DeviceOrientation = "landscape",
+    deviceModel = getIPadDeviceModel(),
   ) => {
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
+      deviceModel,
       currentState: "CLOSED",
       deviceOrientation: orientation,
-      deviceModel: getIPadDeviceModel(),
     };
     closedKeyboardHandler(args);
   };
@@ -50,5 +52,13 @@ describe("#closedKbTransitions", () => {
     const event = createKeyboardEvent("keyboardDidChangeFrame", 55);
     doHandler(event as IOSKeyboardEvent);
     expect(updateKeyboardState).toHaveBeenCalledWith("MINIMIZED");
+  });
+
+  describe("mobile app", () => {
+    it("transits to DOCKED state", () => {
+      const event = createKeyboardEvent("keyboardDidShow", 271);
+      doHandler(event as IOSKeyboardEvent, "portrait", getIPhoneDeviceModel());
+      expect(updateKeyboardState).toHaveBeenCalledWith("DOCKED");
+    });
   });
 });

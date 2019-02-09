@@ -6,6 +6,13 @@ const closedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
     deviceOrientation
   ];
 
+  if (!deviceModel.isTablet) {
+    if (event.eventType === "keyboardDidShow") {
+      updateKeyboardState("DOCKED");
+    }
+    return;
+  }
+
   if (
     event.eventType === "keyboardDidChangeFrame" &&
     event.endCoordinates.height === split

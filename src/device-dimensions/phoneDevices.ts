@@ -15,7 +15,7 @@ const phoneDevices: IDeviceModel[] = [
       },
     },
   },
-  // For iPhone 6/7/8
+  // For iPhone 6/7/8, and for iPhone-only apps running on iPad
   {
     model: "iPhone 8",
     isTablet: false,
