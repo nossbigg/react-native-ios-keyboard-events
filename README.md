@@ -89,9 +89,11 @@ Possible `KeyboardState`s:
 
 #### `.setKeyboardState(newKeyboardState: KeyboardState)`
 
-Sets the preset keyboard state. Use it if for one reason or another the `IOSKeyboardEvents` instance's internal state is inconsistent with the actual keyboard state. (eg. Keyboard is `MINIMIZED` but instance reports as the keyboard being `DOCKED`).
+Sets the instance's tracked keyboard state. Use it if, for one reason or another, the `IOSKeyboardEvents` instance's internal state is inconsistent with the actual keyboard state. (eg. Keyboard is `MINIMIZED` but instance reports as the keyboard being `DOCKED`). This may occur as this library listens to `Keyboard` events to determine the keyboard state.
 
 Throws an error if input is not a `KeyboardState` value.
+
+Note: This method does NOT do keyboard actions (eg. dismissing the keyboard)
 
 #### `.getDeviceModelInformation()`
 
@@ -103,6 +105,7 @@ Returns the matched detected device. (or manually-defined `IDeviceModel` object)
 
 - `iOS` only
 - `React Native` >= 0.58.1
+- `React` >= 16.6.3
 - Also works for iPhone-only apps on iPad
 
 ### Supported Devices
