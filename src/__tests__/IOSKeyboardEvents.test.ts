@@ -2,10 +2,15 @@ import { Keyboard, KeyboardEventName } from "react-native";
 import * as deviceDimensions from "../device-dimensions/deviceDimensions";
 import tabletDevices from "../device-dimensions/tabletDevices";
 import * as IOSKeyboardEventsImport from "../IOSKeyboardEvents";
+import { createKeyboardEvent } from "../keyboard-transitions/__tests__/keyboardTransitionTestHelpers";
+import * as doKeyboardTransitions from "../keyboardTransitions";
+
+const wait = (ms = 1) => new Promise((resolve) => setTimeout(resolve, ms));
 
 describe("#IOSKeyboardEvents", () => {
   let IOSKbEvents: IOSKeyboardEventsImport.IOSKeyboardEvents;
   let nativeKeyboardSubscription: any;
+  let ownKeyboardListener: jest.Mock;
 
   const deviceModel = tabletDevices.find((d) => d.model === "iPad Air");
 
@@ -13,16 +18,24 @@ describe("#IOSKeyboardEvents", () => {
     jest.resetAllMocks();
 
     nativeKeyboardSubscription = { remove: jest.fn() };
+    ownKeyboardListener = jest.fn();
 
+    jest.spyOn(deviceDimensions, "getDeviceModel").mockReturnValue(deviceModel);
     jest
-      .spyOn(Keyboard, "addListener")
-      .mockReturnValue(nativeKeyboardSubscription as any);
+      .spyOn(deviceDimensions, "getDeviceOrientation")
+      .mockReturnValue("landscape");
     jest
       .spyOn(IOSKeyboardEventsImport, "getDevicePlatform")
       .mockReturnValue("ios");
-    jest.spyOn(deviceDimensions, "getDeviceModel").mockReturnValue(deviceModel);
+    jest.spyOn(doKeyboardTransitions, "default");
+    jest
+      .spyOn(Keyboard, "addListener")
+      .mockReturnValue(nativeKeyboardSubscription as any);
 
-    IOSKbEvents = IOSKeyboardEventsImport.default();
+    IOSKbEvents = IOSKeyboardEventsImport.default({
+      keyboardEventDebounceTime: 1,
+    });
+    IOSKbEvents.addListener("some-listener-name", ownKeyboardListener as any);
   });
 
   it("creates IOSKeyboardEvents", () => {
@@ -67,6 +80,45 @@ describe("#IOSKeyboardEvents", () => {
         eventName,
         expect.any(Function),
       );
+    });
+  });
+
+  describe("on keyboard event", () => {
+    const someKeyboardEvent = createKeyboardEvent("keyboardDidChangeFrame", 0);
+
+    const emitKeyboardEvent = (evt: any) => {
+      const onKeyboardEvent = (Keyboard.addListener as jest.Mock).mock
+        .calls[0][1];
+      onKeyboardEvent(evt);
+    };
+
+    beforeEach(() => {
+      emitKeyboardEvent(someKeyboardEvent);
+    });
+
+    it("delegates to doKeyboardTransitions()", () => {
+      expect(doKeyboardTransitions.default).toHaveBeenCalledWith({
+        deviceModel,
+        currentState: "CLOSED",
+        event: someKeyboardEvent,
+        deviceOrientation: "landscape",
+        updateKeyboardState: expect.any(Function),
+      });
+    });
+
+    it("dedupes keyboard events", () => {
+      emitKeyboardEvent(someKeyboardEvent);
+      expect(doKeyboardTransitions.default).toHaveBeenCalledTimes(1);
+    });
+
+    it("passes correct updateKeyboardState handler", async () => {
+      const {
+        updateKeyboardState,
+      } = (doKeyboardTransitions.default as jest.Mock).mock.calls[0][0];
+      updateKeyboardState("DOCKED");
+
+      await wait(1);
+      expect(ownKeyboardListener).toHaveBeenCalledWith("DOCKED", "CLOSED");
     });
   });
 
