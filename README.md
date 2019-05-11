@@ -131,3 +131,8 @@ Returns the matched detected device. (or manually-defined `IDeviceModel` object)
 ## Contributing
 
 Bugs? Feature requests? Clarifications? Raise an issue/PR :)
+
+#### Dev box prerequisites
+
+- `react-native-cli`
+- xcode version >=10
