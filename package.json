@@ -14,6 +14,7 @@
     "start": "npm run ipad",
     "ipad": "react-native run-ios --simulator='iPad Air 2'",
     "iphone": "react-native run-ios --simulator='iPhone 8 Plus'",
+    "android": "react-native run-android",
     "test": "jest",
     "test:watch": "jest --watch",
     "tslint": "tslint -c tslint.json -p tsconfig.json 'src/**/*.{ts,tsx}'",
