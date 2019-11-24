@@ -45,7 +45,7 @@
     "metro-react-native-babel-preset": "0.51.1",
     "prettier": "^1.16.1",
     "react": "^16.6.3",
-    "react-native": "^0.59.8",
+    "react-native": "^0.59.9",
     "react-test-renderer": "16.6.3",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
