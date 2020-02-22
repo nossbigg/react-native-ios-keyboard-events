@@ -2,7 +2,7 @@ import { KeyboardTransitionHandlerType } from "../keyboardTransitions";
 
 const splitKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
   const { event, updateKeyboardState, deviceModel, deviceOrientation } = args;
-  const { docked, minimized } = deviceModel.keyboardDimensions[
+  const { docked, minimized, floating } = deviceModel.keyboardDimensions[
     deviceOrientation
   ];
 
@@ -19,6 +19,14 @@ const splitKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
     event.endCoordinates.height === docked
   ) {
     updateKeyboardState("UNDOCKED");
+    return;
+  }
+
+  if (
+    event.eventType === "keyboardDidChangeFrame" &&
+    event.endCoordinates.height === floating
+  ) {
+    updateKeyboardState("FLOATING");
     return;
   }
 

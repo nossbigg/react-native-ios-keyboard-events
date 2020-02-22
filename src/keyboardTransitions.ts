@@ -5,6 +5,7 @@ import {
 import { IOSKeyboardEvent } from "./IOSKeyboardEvents";
 import closedKeyboardHandler from "./keyboard-transitions/closedKbTransitions";
 import dockedKeyboardHandler from "./keyboard-transitions/dockedKbTransitions";
+import floatingKeyboardHandler from "./keyboard-transitions/floatingKbTransitions";
 import minimizedKeyboardHandler from "./keyboard-transitions/minimizedKbTransitions";
 import splitKeyboardHandler from "./keyboard-transitions/splitKbTransitions";
 import undockedKeyboardHandler from "./keyboard-transitions/undockedKbTransitions";
@@ -14,7 +15,8 @@ export type KeyboardState =
   | "MINIMIZED"
   | "DOCKED"
   | "UNDOCKED"
-  | "SPLIT";
+  | "SPLIT"
+  | "FLOATING";
 
 type Actions = { [key in KeyboardState]: KeyboardTransitionHandlerType };
 
@@ -37,6 +39,7 @@ const doKeyboardTransitions = (args: IKeyboardTransitionsArgs): void => {
     UNDOCKED: undockedKeyboardHandler,
     MINIMIZED: minimizedKeyboardHandler,
     SPLIT: splitKeyboardHandler,
+    FLOATING: floatingKeyboardHandler,
   };
 
   const action = actions[args.currentState];

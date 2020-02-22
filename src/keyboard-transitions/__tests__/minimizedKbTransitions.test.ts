@@ -46,6 +46,12 @@ describe("#minimizedKbTransitions", () => {
     expect(updateKeyboardState).toHaveBeenCalledWith("UNDOCKED");
   });
 
+  it("transits to FLOATING state", () => {
+    const event = createKeyboardEvent("keyboardDidChangeFrame", 295);
+    doHandler(event as IOSKeyboardEvent);
+    expect(updateKeyboardState).toHaveBeenCalledWith("FLOATING");
+  });
+
   it("transits to SPLIT state", () => {
     const event = createKeyboardEvent("keyboardDidChangeFrame", 271);
     doHandler(event as IOSKeyboardEvent);

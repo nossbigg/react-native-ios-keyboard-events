@@ -1,31 +1,27 @@
-import { DeviceOrientation } from "../../device-dimensions/deviceDimensions";
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 import { IKeyboardTransitionsArgs } from "../../keyboardTransitions";
-import undockedKeyboardHandler from "../undockedKbTransitions";
+import floatingKeyboardHandler from "../floatingKbTransitions";
 import {
   createKeyboardEvent,
   getIPadDeviceModel,
 } from "./keyboardTransitionTestHelpers";
 
-describe("#undockedKbTransitions", () => {
+describe("#floatingKbTransitions", () => {
   let updateKeyboardState: jest.Mock;
 
   beforeEach(() => {
     updateKeyboardState = jest.fn();
   });
 
-  const doHandler = (
-    event: IOSKeyboardEvent,
-    orientation: DeviceOrientation = "landscape",
-  ) => {
+  const doHandler = (event: IOSKeyboardEvent) => {
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
-      currentState: "UNDOCKED",
-      deviceOrientation: orientation,
+      currentState: "FLOATING",
+      deviceOrientation: "landscape",
       deviceModel: getIPadDeviceModel(),
     };
-    undockedKeyboardHandler(args);
+    floatingKeyboardHandler(args);
   };
 
   it("transits to DOCKED state", () => {
@@ -34,28 +30,10 @@ describe("#undockedKbTransitions", () => {
     expect(updateKeyboardState).toHaveBeenCalledWith("DOCKED");
   });
 
-  it("transits to DOCKED state (vertical)", () => {
-    const event = createKeyboardEvent("keyboardDidShow", 320);
-    doHandler(event as IOSKeyboardEvent, "portrait");
-    expect(updateKeyboardState).toHaveBeenCalledWith("DOCKED");
-  });
-
   it("transits to MINIMIZED state", () => {
     const event = createKeyboardEvent("keyboardDidShow", 55);
     doHandler(event as IOSKeyboardEvent);
     expect(updateKeyboardState).toHaveBeenCalledWith("MINIMIZED");
-  });
-
-  it("transits to SPLIT state", () => {
-    const event = createKeyboardEvent("keyboardDidChangeFrame", 271);
-    doHandler(event as IOSKeyboardEvent);
-    expect(updateKeyboardState).toHaveBeenCalledWith("SPLIT");
-  });
-
-  it("transits to FLOATING state", () => {
-    const event = createKeyboardEvent("keyboardDidChangeFrame", 295);
-    doHandler(event as IOSKeyboardEvent);
-    expect(updateKeyboardState).toHaveBeenCalledWith("FLOATING");
   });
 
   it("transits to CLOSED state", () => {

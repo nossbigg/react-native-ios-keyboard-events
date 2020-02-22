@@ -16,6 +16,7 @@ export type KeyboardDimensions = {
     docked: number;
     split?: number;
     minimized?: number;
+    floating?: number;
   }
 };
 

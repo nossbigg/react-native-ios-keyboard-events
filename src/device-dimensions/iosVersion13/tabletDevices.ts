@@ -11,11 +11,13 @@ const tabletDevices: IDeviceModel[] = [
         docked: 408,
         split: 271,
         minimized: 55,
+        floating: 295,
       },
       portrait: {
         docked: 320,
         split: 271,
         minimized: 55,
+        floating: 295,
       },
     },
   },
@@ -28,11 +30,13 @@ const tabletDevices: IDeviceModel[] = [
         docked: 408,
         split: 271,
         minimized: 55,
+        floating: 295,
       },
       portrait: {
         docked: 320,
         split: 271,
         minimized: 55,
+        floating: 295,
       },
     },
   },
@@ -44,10 +48,12 @@ const tabletDevices: IDeviceModel[] = [
       landscape: {
         docked: 428,
         minimized: 69,
+        floating: 295,
       },
       portrait: {
         docked: 340,
         minimized: 69,
+        floating: 295,
       },
     },
   },
@@ -60,10 +66,12 @@ const tabletDevices: IDeviceModel[] = [
       landscape: {
         docked: 478,
         minimized: 55,
+        floating: 295,
       },
       portrait: {
         docked: 383,
         minimized: 55,
+        floating: 295,
       },
     },
   },

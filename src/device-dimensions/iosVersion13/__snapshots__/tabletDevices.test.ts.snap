@@ -7,11 +7,13 @@ Array [
     "keyboardDimensions": Object {
       "landscape": Object {
         "docked": 408,
+        "floating": 295,
         "minimized": 55,
         "split": 271,
       },
       "portrait": Object {
         "docked": 320,
+        "floating": 295,
         "minimized": 55,
         "split": 271,
       },
@@ -27,11 +29,13 @@ Array [
     "keyboardDimensions": Object {
       "landscape": Object {
         "docked": 408,
+        "floating": 295,
         "minimized": 55,
         "split": 271,
       },
       "portrait": Object {
         "docked": 320,
+        "floating": 295,
         "minimized": 55,
         "split": 271,
       },
@@ -47,10 +51,12 @@ Array [
     "keyboardDimensions": Object {
       "landscape": Object {
         "docked": 428,
+        "floating": 295,
         "minimized": 69,
       },
       "portrait": Object {
         "docked": 340,
+        "floating": 295,
         "minimized": 69,
       },
     },
@@ -65,10 +71,12 @@ Array [
     "keyboardDimensions": Object {
       "landscape": Object {
         "docked": 478,
+        "floating": 295,
         "minimized": 55,
       },
       "portrait": Object {
         "docked": 383,
+        "floating": 295,
         "minimized": 55,
       },
     },
