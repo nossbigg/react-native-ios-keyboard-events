@@ -162,7 +162,8 @@ const createIOSKeyboardEvents = (options: IOSKeyboardEventsOptions = {}) => {
     throw new Error("Library only supports iOS.");
   }
 
-  const foundDeviceModel = getDeviceModel();
+  const iosVersion = Platform.Version as string;
+  const foundDeviceModel = getDeviceModel(iosVersion);
   if (!foundDeviceModel) {
     throw new Error("Unable to interpret device model from given dimensions.");
   }

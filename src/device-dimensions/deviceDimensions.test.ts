@@ -31,13 +31,13 @@ describe("#deviceDimensions", () => {
   it("gets device model", () => {
     mockDimensionsGet(1024, 768);
 
-    const deviceModel = getDeviceModel() as IDeviceModel;
+    const deviceModel = getDeviceModel("12.0") as IDeviceModel;
     expect(deviceModel.model).toEqual("iPad Air");
     expect(Dimensions.get).toHaveBeenCalledWith("window");
   });
 
   it("does not get device model", () => {
     mockDimensionsGet(1, 1);
-    expect(getDeviceModel()).toBe(undefined);
+    expect(getDeviceModel("12.0")).toBe(undefined);
   });
 });

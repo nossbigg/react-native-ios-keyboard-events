@@ -1,6 +1,5 @@
 import { Dimensions } from "react-native";
-import phoneDevices from "./iosVersion12/phoneDevices";
-import tabletDevices from "./iosVersion12/tabletDevices";
+import iosVersion12Devices from "./iosVersion12";
 
 export interface IDeviceModel {
   model: string;
@@ -19,17 +18,40 @@ export type KeyboardDimensions = {
   }
 };
 
-export const devices: IDeviceModel[] = [...phoneDevices, ...tabletDevices];
+export const getDeviceModel = (
+  iosVersion: string,
+): IDeviceModel | undefined => {
+  const iosMajorVersion = getIosMajorVersionNumber(iosVersion);
+  const matchedDeviceMapping = iosVersionDeviceMapping[iosMajorVersion];
+  const availableDevices = getAllDeviceModels(matchedDeviceMapping);
+
+  const { height, width } = Dimensions.get("window");
+  return availableDevices.find(
+    (device) =>
+      device.screenDimensions.has(width) && device.screenDimensions.has(height),
+  );
+};
 
 export const getDeviceOrientation = (): DeviceOrientation => {
   const { height, width } = Dimensions.get("window");
   return width > height ? "landscape" : "portrait";
 };
 
-export const getDeviceModel = (): IDeviceModel | undefined => {
-  const { height, width } = Dimensions.get("window");
-  return devices.find(
-    (device) =>
-      device.screenDimensions.has(width) && device.screenDimensions.has(height),
-  );
+const getIosMajorVersionNumber = (iosVersion: string): string => {
+  const [majorVersionNumber] = iosVersion.trim().split(".");
+  return majorVersionNumber;
+};
+
+interface IosVersionDeviceMappingEntry {
+  phoneDevices: IDeviceModel[];
+  tabletDevices: IDeviceModel[];
+}
+
+const iosVersionDeviceMapping: Record<string, IosVersionDeviceMappingEntry> = {
+  12: { ...iosVersion12Devices },
+};
+
+const getAllDeviceModels = (mappingEntry: IosVersionDeviceMappingEntry) => {
+  const { phoneDevices, tabletDevices } = mappingEntry;
+  return [...phoneDevices, ...tabletDevices];
 };
