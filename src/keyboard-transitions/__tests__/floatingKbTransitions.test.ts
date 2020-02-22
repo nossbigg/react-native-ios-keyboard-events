@@ -14,14 +14,15 @@ describe("#floatingKbTransitions", () => {
   });
 
   const doHandler = (event: IOSKeyboardEvent) => {
+    const deviceModel = getIPadDeviceModel();
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       currentState: "FLOATING",
       deviceOrientation: "landscape",
-      deviceModel: getIPadDeviceModel(),
+      deviceModel,
     };
-    floatingKeyboardHandler(args);
+    floatingKeyboardHandler(args, deviceModel.keyboardDimensions);
   };
 
   it("transits to DOCKED state", () => {

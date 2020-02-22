@@ -1,6 +1,7 @@
 import {
   DeviceOrientation,
   IDeviceModel,
+  KeyboardDimensions,
 } from "./device-dimensions/deviceDimensions";
 import { IOSKeyboardEvent } from "./IOSKeyboardEvents";
 import closedKeyboardHandler from "./keyboard-transitions/closedKbTransitions";
@@ -9,6 +10,10 @@ import floatingKeyboardHandler from "./keyboard-transitions/floatingKbTransition
 import minimizedKeyboardHandler from "./keyboard-transitions/minimizedKbTransitions";
 import splitKeyboardHandler from "./keyboard-transitions/splitKbTransitions";
 import undockedKeyboardHandler from "./keyboard-transitions/undockedKbTransitions";
+import {
+  doHandlerWithAdditionalDimensions,
+  hasAdditionalKeyboardDimensions,
+} from "./keyboard-transitions/utils/doHandlerWithAdditionalDimensions";
 
 export type KeyboardState =
   | "CLOSED"
@@ -24,6 +29,7 @@ type KeyboardActionsMapper = {
 
 export type KeyboardTransitionHandlerType = (
   args: IKeyboardTransitionsArgs,
+  keyboardDimensions: KeyboardDimensions,
 ) => void;
 
 export interface IKeyboardTransitionsArgs {
@@ -44,10 +50,19 @@ const keyboardActionsMap: KeyboardActionsMapper = {
 };
 
 const doKeyboardTransitions = (args: IKeyboardTransitionsArgs): void => {
-  const action = keyboardActionsMap[args.currentState];
-  if (action) {
-    action(args);
+  const actionHandler = keyboardActionsMap[args.currentState];
+  if (!actionHandler) {
+    return;
   }
+
+  // For iPad Pro (12.9-inch) (3rd generation) iOS v13 special case
+  const shouldWrapFunction = hasAdditionalKeyboardDimensions(args);
+  if (shouldWrapFunction) {
+    doHandlerWithAdditionalDimensions(actionHandler, args);
+    return;
+  }
+
+  actionHandler(args, args.deviceModel.keyboardDimensions);
 };
 
 export default doKeyboardTransitions;

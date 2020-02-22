@@ -14,14 +14,15 @@ describe("#dockedKbTransitions", () => {
   });
 
   const doHandler = (event: IOSKeyboardEvent) => {
+    const deviceModel = getIPadDeviceModel();
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       currentState: "DOCKED",
       deviceOrientation: "landscape",
-      deviceModel: getIPadDeviceModel(),
+      deviceModel,
     };
-    dockedKeyboardHandler(args);
+    dockedKeyboardHandler(args, deviceModel.keyboardDimensions);
   };
 
   it("transits to CLOSED state", () => {

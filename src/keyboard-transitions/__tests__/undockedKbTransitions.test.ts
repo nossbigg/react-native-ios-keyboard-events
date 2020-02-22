@@ -18,14 +18,15 @@ describe("#undockedKbTransitions", () => {
     event: IOSKeyboardEvent,
     orientation: DeviceOrientation = "landscape",
   ) => {
+    const deviceModel = getIPadDeviceModel();
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       currentState: "UNDOCKED",
       deviceOrientation: orientation,
-      deviceModel: getIPadDeviceModel(),
+      deviceModel,
     };
-    undockedKeyboardHandler(args);
+    undockedKeyboardHandler(args, deviceModel.keyboardDimensions);
   };
 
   it("transits to DOCKED state", () => {

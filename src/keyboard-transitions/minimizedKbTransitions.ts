@@ -1,8 +1,11 @@
 import { KeyboardTransitionHandlerType } from "../keyboardTransitions";
 
-const minimizedKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
-  const { event, updateKeyboardState, deviceOrientation, deviceModel } = args;
-  const { split, docked, floating } = deviceModel.keyboardDimensions[deviceOrientation];
+const minimizedKeyboardHandler: KeyboardTransitionHandlerType = (
+  args,
+  keyboardDimensions,
+) => {
+  const { event, updateKeyboardState, deviceOrientation } = args;
+  const { split, docked, floating } = keyboardDimensions[deviceOrientation];
 
   if (
     event.eventType === "keyboardDidHide" &&

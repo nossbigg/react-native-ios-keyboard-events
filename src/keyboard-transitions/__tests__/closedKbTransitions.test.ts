@@ -27,7 +27,7 @@ describe("#closedKbTransitions", () => {
       currentState: "CLOSED",
       deviceOrientation: orientation,
     };
-    closedKeyboardHandler(args);
+    closedKeyboardHandler(args, deviceModel.keyboardDimensions);
   };
 
   it("transits to SPLIT state", () => {

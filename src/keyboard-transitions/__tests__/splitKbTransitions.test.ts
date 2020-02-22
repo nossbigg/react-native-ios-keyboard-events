@@ -18,14 +18,15 @@ describe("#splitKbTransitions", () => {
     event: IOSKeyboardEvent,
     orientation: DeviceOrientation = "landscape",
   ) => {
+    const deviceModel = getIPadDeviceModel();
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       currentState: "SPLIT",
       deviceOrientation: orientation,
-      deviceModel: getIPadDeviceModel(),
+      deviceModel,
     };
-    splitKeyboardHandler(args);
+    splitKeyboardHandler(args, deviceModel.keyboardDimensions);
   };
 
   it("transits to CLOSED state", () => {

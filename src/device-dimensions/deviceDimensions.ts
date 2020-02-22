@@ -7,6 +7,8 @@ export interface IDeviceModel {
   isTablet: boolean;
   screenDimensions: Set<number>;
   keyboardDimensions: KeyboardDimensions;
+  // For iPad Pro (12.9-inch) (3rd generation) iOS v13 special case
+  additionalKeyboardDimensions?: KeyboardDimensions;
 }
 
 export type DeviceOrientation = "landscape" | "portrait";

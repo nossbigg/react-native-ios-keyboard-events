@@ -57,7 +57,7 @@ const tabletDevices: IDeviceModel[] = [
       },
     },
   },
-  // For iPad Pro (12.9-inch), iPad Pro (12.9-inch) (2nd generation), and iPad Pro (12.9-inch) (3rd generation)
+  // For iPad Pro (12.9-inch), iPad Pro (12.9-inch) (2nd generation)
   {
     model: "iPad Pro (12.9-inch)",
     isTablet: true,
@@ -72,6 +72,20 @@ const tabletDevices: IDeviceModel[] = [
         docked: 383,
         minimized: 55,
         floating: 295,
+      },
+    },
+    // For iPad Pro (12.9-inch) (3rd generation) iOS v13 special case
+    // Same screen dimensions, but emitting different events 😥
+    additionalKeyboardDimensions: {
+      landscape: {
+        docked: 498,
+        minimized: 69,
+        floating: 254,
+      },
+      portrait: {
+        docked: 403,
+        minimized: 69,
+        floating: 254,
       },
     },
   },

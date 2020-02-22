@@ -1,10 +1,11 @@
 import { KeyboardTransitionHandlerType } from "../keyboardTransitions";
 
-const floatingKeyboardHandler: KeyboardTransitionHandlerType = (args) => {
-  const { event, updateKeyboardState, deviceModel, deviceOrientation } = args;
-  const { docked, minimized } = deviceModel.keyboardDimensions[
-    deviceOrientation
-  ];
+const floatingKeyboardHandler: KeyboardTransitionHandlerType = (
+  args,
+  keyboardDimensions,
+) => {
+  const { event, updateKeyboardState, deviceOrientation } = args;
+  const { docked, minimized } = keyboardDimensions[deviceOrientation];
 
   if (
     event.eventType === "keyboardDidShow" &&

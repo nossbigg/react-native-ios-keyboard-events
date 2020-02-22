@@ -67,6 +67,18 @@ Array [
     },
   },
   Object {
+    "additionalKeyboardDimensions": Object {
+      "landscape": Object {
+        "docked": 498,
+        "floating": 254,
+        "minimized": 69,
+      },
+      "portrait": Object {
+        "docked": 403,
+        "floating": 254,
+        "minimized": 69,
+      },
+    },
     "isTablet": true,
     "keyboardDimensions": Object {
       "landscape": Object {

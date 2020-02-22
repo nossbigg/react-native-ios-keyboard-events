@@ -18,14 +18,15 @@ describe("#minimizedKbTransitions", () => {
     event: IOSKeyboardEvent,
     orientation: DeviceOrientation = "landscape",
   ) => {
+    const deviceModel = getIPadDeviceModel();
     const args: IKeyboardTransitionsArgs = {
       updateKeyboardState,
       event,
       currentState: "MINIMIZED",
       deviceOrientation: orientation,
-      deviceModel: getIPadDeviceModel(),
+      deviceModel,
     };
-    minimizedKeyboardHandler(args);
+    minimizedKeyboardHandler(args, deviceModel.keyboardDimensions);
   };
 
   it("transits to CLOSED state", () => {
