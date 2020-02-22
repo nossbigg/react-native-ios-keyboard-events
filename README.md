@@ -86,6 +86,7 @@ Possible `KeyboardState`s:
 - `DOCKED`
 - `UNDOCKED`
 - `SPLIT`
+- `FLOATING` (iOS v13)
 
 #### `.setKeyboardState(newKeyboardState: KeyboardState)`
 
@@ -104,6 +105,7 @@ Returns the matched detected device. (or manually-defined `IDeviceModel` object)
 ### Platform
 
 - `iOS` only
+- iOS versions `12.x` and `13.x`
 - `React Native` >= 0.58.1
 - `React` >= 16.6.3
 - Also works for iPhone-only apps on iPad
@@ -113,16 +115,17 @@ Returns the matched detected device. (or manually-defined `IDeviceModel` object)
 #### Phones
 
 - iPhone 5s/SE
-- iPhone 6/7/8
-- iPhone 6/7/8 Plus
+- iPhone 6/6s/7/8
+- iPhone 6/6s/7/8 Plus
 - iPhone X
 - iPhone XS/XS Max
 - iPhone XR
+- iPhone 11/11 Pro/11 Pro Max
 
 #### Tablets
 
 - iPad (5th/6th generation)
-- iPad Air/Air 2
+- iPad Air/Air 2/3rd generation
 - iPad Pro (9.7-inch)
 - iPad Pro (10.5-inch)
 - iPad Pro (11-inch)
