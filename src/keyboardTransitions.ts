@@ -18,7 +18,9 @@ export type KeyboardState =
   | "SPLIT"
   | "FLOATING";
 
-type Actions = { [key in KeyboardState]: KeyboardTransitionHandlerType };
+type KeyboardActionsMapper = {
+  [key in KeyboardState]: KeyboardTransitionHandlerType
+};
 
 export type KeyboardTransitionHandlerType = (
   args: IKeyboardTransitionsArgs,
@@ -32,17 +34,17 @@ export interface IKeyboardTransitionsArgs {
   updateKeyboardState(nextState: KeyboardState): void;
 }
 
-const doKeyboardTransitions = (args: IKeyboardTransitionsArgs): void => {
-  const actions: Actions = {
-    CLOSED: closedKeyboardHandler,
-    DOCKED: dockedKeyboardHandler,
-    UNDOCKED: undockedKeyboardHandler,
-    MINIMIZED: minimizedKeyboardHandler,
-    SPLIT: splitKeyboardHandler,
-    FLOATING: floatingKeyboardHandler,
-  };
+const keyboardActionsMap: KeyboardActionsMapper = {
+  CLOSED: closedKeyboardHandler,
+  DOCKED: dockedKeyboardHandler,
+  UNDOCKED: undockedKeyboardHandler,
+  MINIMIZED: minimizedKeyboardHandler,
+  SPLIT: splitKeyboardHandler,
+  FLOATING: floatingKeyboardHandler,
+};
 
-  const action = actions[args.currentState];
+const doKeyboardTransitions = (args: IKeyboardTransitionsArgs): void => {
+  const action = keyboardActionsMap[args.currentState];
   if (action) {
     action(args);
   }
