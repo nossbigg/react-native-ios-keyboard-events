@@ -8,12 +8,7 @@
  */
 
 import React from "react";
-import {
-  KeyboardAvoidingView,
-  StyleSheet,
-  Text,
-  TextInput,
-} from "react-native";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import createIOSKeyboardEvents from "./src/IOSKeyboardEvents";
 import { KeyboardState } from "./src/keyboardTransitions";
 
@@ -23,7 +18,7 @@ interface IState {
 
 export default class AppDemo extends React.Component<{}, IState> {
   private IOSKbEvents = createIOSKeyboardEvents({
-    keyboardEventDebounceTime: 50,
+    keyboardEventDebounceTime: 100,
   });
 
   constructor(props: {}) {
@@ -35,15 +30,15 @@ export default class AppDemo extends React.Component<{}, IState> {
 
   public render() {
     return (
-      <KeyboardAvoidingView
-        behavior="padding"
-        style={styles.container}
-        enabled={this.state.currentKeyboardState !== "SPLIT"}
-      >
-        <TextInput placeholder="Type here!" style={styles.textInput} />
-        <Text style={{ fontSize: 18 }}>Current Keyboard State:</Text>
-        <Text style={{ fontSize: 64 }}>{this.state.currentKeyboardState}</Text>
-      </KeyboardAvoidingView>
+      <View style={styles.container}>
+        <View style={styles.contents}>
+          <TextInput placeholder="Type here!" style={styles.textInput} />
+          <Text style={styles.rightMargin}>Current State: </Text>
+          <Text style={{ fontSize: 32 }}>
+            {this.state.currentKeyboardState}
+          </Text>
+        </View>
+      </View>
     );
   }
 
@@ -67,15 +62,24 @@ export default class AppDemo extends React.Component<{}, IState> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "white",
+    paddingTop: 50,
   },
   textInput: {
     borderWidth: 1,
-    width: "30%",
+    width: 200,
     borderRadius: 5,
-    marginBottom: 10,
+    marginRight: 5,
     padding: 10,
+  },
+  contents: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rightMargin: {
+    marginRight: 5,
   },
 });
