@@ -1,7 +1,7 @@
 import { KeyboardEventName } from "react-native";
 import { IDeviceModel } from "../../device-dimensions/deviceDimensions";
-import phoneDevices from "../../device-dimensions/phoneDevices";
-import tabletDevices from "../../device-dimensions/tabletDevices";
+import phoneDevices from "../../device-dimensions/iosVersion12/phoneDevices";
+import tabletDevices from "../../device-dimensions/iosVersion12/tabletDevices";
 import { IOSKeyboardEvent } from "../../IOSKeyboardEvents";
 
 export const createKeyboardEvent = (

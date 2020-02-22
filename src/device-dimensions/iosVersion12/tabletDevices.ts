@@ -1,4 +1,4 @@
-import { IDeviceModel } from "./deviceDimensions";
+import { IDeviceModel } from "../deviceDimensions";
 
 const tabletDevices: IDeviceModel[] = [
   // For iPad Air, iPad Air 2, iPad (5th generation), iPad (6th generation), and iPad Pro (9.7-inch)

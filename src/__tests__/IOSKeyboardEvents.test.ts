@@ -1,6 +1,6 @@
 import { Keyboard, KeyboardEventName } from "react-native";
 import * as deviceDimensions from "../device-dimensions/deviceDimensions";
-import tabletDevices from "../device-dimensions/tabletDevices";
+import tabletDevices from "../device-dimensions/iosVersion12/tabletDevices";
 import * as IOSKeyboardEventsImport from "../IOSKeyboardEvents";
 import { createKeyboardEvent } from "../keyboard-transitions/__tests__/keyboardTransitionTestHelpers";
 import * as doKeyboardTransitions from "../keyboardTransitions";

@@ -1,4 +1,4 @@
-import { IDeviceModel } from "./deviceDimensions";
+import { IDeviceModel } from "../deviceDimensions";
 
 const phoneDevices: IDeviceModel[] = [
   // For iPhone 5s, and iPhone SE

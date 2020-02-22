@@ -4,8 +4,8 @@ import {
   getDeviceOrientation,
   IDeviceModel,
 } from "../deviceDimensions";
-import phoneDevices from "../phoneDevices";
-import tabletDevices from "../tabletDevices";
+import phoneDevices from "../iosVersion12/phoneDevices";
+import tabletDevices from "../iosVersion12/tabletDevices";
 
 describe("#deviceDimensions", () => {
   const mockDimensionsGet = (height: number, width: number) => {

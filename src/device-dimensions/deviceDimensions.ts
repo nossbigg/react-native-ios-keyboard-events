@@ -1,6 +1,6 @@
 import { Dimensions } from "react-native";
-import phoneDevices from "./phoneDevices";
-import tabletDevices from "./tabletDevices";
+import phoneDevices from "./iosVersion12/phoneDevices";
+import tabletDevices from "./iosVersion12/tabletDevices";
 
 export interface IDeviceModel {
   model: string;
