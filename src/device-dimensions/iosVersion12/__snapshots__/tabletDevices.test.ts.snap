@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tabletDevices matches snapshot 1`] = `
+Array [
+  Object {
+    "isTablet": true,
+    "keyboardDimensions": Object {
+      "landscape": Object {
+        "docked": 398,
+        "minimized": 55,
+        "split": 271,
+      },
+      "portrait": Object {
+        "docked": 313,
+        "minimized": 55,
+        "split": 271,
+      },
+    },
+    "model": "iPad Air",
+    "screenDimensions": Set {
+      1024,
+      768,
+    },
+  },
+  Object {
+    "isTablet": true,
+    "keyboardDimensions": Object {
+      "landscape": Object {
+        "docked": 398,
+        "minimized": 55,
+        "split": 271,
+      },
+      "portrait": Object {
+        "docked": 313,
+        "minimized": 55,
+        "split": 271,
+      },
+    },
+    "model": "iPad Pro (10.5-inch)",
+    "screenDimensions": Set {
+      1112,
+      834,
+    },
+  },
+  Object {
+    "isTablet": true,
+    "keyboardDimensions": Object {
+      "landscape": Object {
+        "docked": 418,
+        "minimized": 69,
+      },
+      "portrait": Object {
+        "docked": 333,
+        "minimized": 69,
+      },
+    },
+    "model": "iPad Pro (11-inch)",
+    "screenDimensions": Set {
+      1194,
+      834,
+    },
+  },
+  Object {
+    "isTablet": true,
+    "keyboardDimensions": Object {
+      "landscape": Object {
+        "docked": 471,
+        "minimized": 55,
+      },
+      "portrait": Object {
+        "docked": 378,
+        "minimized": 55,
+      },
+    },
+    "model": "iPad Pro (12.9-inch)",
+    "screenDimensions": Set {
+      1366,
+      1024,
+    },
+  },
+]
+`;

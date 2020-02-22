@@ -4,8 +4,6 @@ import {
   getDeviceOrientation,
   IDeviceModel,
 } from "./deviceDimensions";
-import phoneDevices from "./iosVersion12/phoneDevices";
-import tabletDevices from "./iosVersion12/tabletDevices";
 
 describe("#deviceDimensions", () => {
   const mockDimensionsGet = (height: number, width: number) => {
@@ -16,14 +14,6 @@ describe("#deviceDimensions", () => {
 
   beforeEach(() => {
     jest.resetAllMocks();
-  });
-
-  it("contains device information of phone devices", () => {
-    expect(phoneDevices).toMatchSnapshot();
-  });
-
-  it("contains device information of tablet devices", () => {
-    expect(tabletDevices).toMatchSnapshot();
   });
 
   it("returns device orientation as landscape", () => {
