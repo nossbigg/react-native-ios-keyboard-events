@@ -1,5 +1,6 @@
 import { Dimensions } from "react-native";
 import iosVersion12Devices from "./iosVersion12";
+import iosVersion13Devices from "./iosVersion13";
 
 export interface IDeviceModel {
   model: string;
@@ -49,6 +50,7 @@ interface IosVersionDeviceMappingEntry {
 
 const iosVersionDeviceMapping: Record<string, IosVersionDeviceMappingEntry> = {
   12: { ...iosVersion12Devices },
+  13: { ...iosVersion13Devices },
 };
 
 const getAllDeviceModels = (mappingEntry: IosVersionDeviceMappingEntry) => {
