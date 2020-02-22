@@ -35,13 +35,13 @@ describe("#minimizedKbTransitions", () => {
   });
 
   it("transits to UNDOCKED state", () => {
-    const event = createKeyboardEvent("keyboardDidChangeFrame", 398);
+    const event = createKeyboardEvent("keyboardDidChangeFrame", 408);
     doHandler(event as IOSKeyboardEvent);
     expect(updateKeyboardState).toHaveBeenCalledWith("UNDOCKED");
   });
 
   it("transits to UNDOCKED state (vertical)", () => {
-    const event = createKeyboardEvent("keyboardDidChangeFrame", 313);
+    const event = createKeyboardEvent("keyboardDidChangeFrame", 320);
     doHandler(event as IOSKeyboardEvent, "portrait");
     expect(updateKeyboardState).toHaveBeenCalledWith("UNDOCKED");
   });

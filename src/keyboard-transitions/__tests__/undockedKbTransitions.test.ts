@@ -29,13 +29,13 @@ describe("#undockedKbTransitions", () => {
   };
 
   it("transits to DOCKED state", () => {
-    const event = createKeyboardEvent("keyboardDidShow", 398);
+    const event = createKeyboardEvent("keyboardDidShow", 408);
     doHandler(event as IOSKeyboardEvent);
     expect(updateKeyboardState).toHaveBeenCalledWith("DOCKED");
   });
 
   it("transits to DOCKED state (vertical)", () => {
-    const event = createKeyboardEvent("keyboardDidShow", 313);
+    const event = createKeyboardEvent("keyboardDidShow", 320);
     doHandler(event as IOSKeyboardEvent, "portrait");
     expect(updateKeyboardState).toHaveBeenCalledWith("DOCKED");
   });
