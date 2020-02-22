@@ -12,8 +12,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "npm run ipad",
-    "ipad": "react-native run-ios --simulator='iPad Air 2'",
-    "iphone": "react-native run-ios --simulator='iPhone 8 Plus'",
+    "ipad": "react-native run-ios --simulator='iPad Air 2 (13.0) (13.0)'",
+    "iphone": "react-native run-ios --simulator='iPhone 8 Plus (13.0) (13.0)'",
     "android": "react-native run-android",
     "test": "jest",
     "test:watch": "jest --watch",
