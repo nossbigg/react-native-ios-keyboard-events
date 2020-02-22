@@ -31,12 +31,16 @@ export default class AppDemo extends React.Component<{}, IState> {
   public render() {
     return (
       <View style={styles.container}>
-        <View style={styles.contents}>
-          <TextInput placeholder="Type here!" style={styles.textInput} />
-          <Text style={styles.rightMargin}>Current State: </Text>
-          <Text style={{ fontSize: 32 }}>
-            {this.state.currentKeyboardState}
+        <View>
+          <Text style={styles.title}>
+            <Text>Current State: </Text>
+            <Text style={{ fontWeight: "bold" }}>
+              {this.state.currentKeyboardState}
+            </Text>
           </Text>
+        </View>
+        <View>
+          <TextInput placeholder="Type here!" style={styles.textInput} />
         </View>
       </View>
     );
@@ -67,19 +71,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 50,
   },
+  title: {
+    fontSize: 20,
+  },
   textInput: {
     borderWidth: 1,
     width: 200,
     borderRadius: 5,
     marginRight: 5,
     padding: 10,
-  },
-  contents: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  rightMargin: {
-    marginRight: 5,
   },
 });
