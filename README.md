@@ -4,7 +4,7 @@
 
 **A `react-native` library to detect an Apple iOS device's keyboard state.**
 
-Especially useful if you need to detect a split keyboard on an iPad (so that you can make UI adjustments to accomodate it)
+Especially useful if you need to detect a split or floating keyboard on an iPad (so that you can make UI adjustments to accomodate it)
 
 Works _✨nicely✨_ with `KeyboardAvoidingView` 👍🏻
 
