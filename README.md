@@ -6,7 +6,7 @@ Especially useful if you need to detect a split keyboard on an iPad (so that you
 
 Works _✨nicely✨_ with `KeyboardAvoidingView` 👍🏻
 
-![GIF Demo of library](demo/library-demo.gif)
+![GIF Demo of library](docs/library-demo.gif)
 
 Example: [AppDemo.tsx](AppDemo.tsx)
 
@@ -134,6 +134,10 @@ Returns the matched detected device. (or manually-defined `IDeviceModel` object)
 ## Contributing
 
 Bugs? Feature requests? Clarifications? Raise an issue/PR :)
+
+## Release notes
+
+See [Release Notes](docs/release-notes.md)
 
 #### Dev box prerequisites
 
