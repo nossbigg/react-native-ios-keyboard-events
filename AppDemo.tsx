@@ -40,7 +40,11 @@ export default class AppDemo extends React.Component<{}, IState> {
           </Text>
         </View>
         <View>
-          <TextInput placeholder="Type here!" style={styles.textInput} />
+          <TextInput
+            placeholder="Type here!"
+            style={styles.textInput}
+            autoFocus
+          />
         </View>
       </View>
     );
