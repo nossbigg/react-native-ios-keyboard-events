@@ -1,6 +1,6 @@
 # react-native-ios-keyboard-events
 
-![Build Badge](https://travis-ci.com/nossbigg/react-native-ios-keyboard-events.svg?branch=master)
+![Build Badge](https://travis-ci.com/nossbigg/react-native-ios-keyboard-events.svg?branch=master) [![codecov](https://codecov.io/gh/nossbigg/react-native-ios-keyboard-events/branch/master/graph/badge.svg)](https://codecov.io/gh/nossbigg/react-native-ios-keyboard-events)
 
 **A `react-native` library to detect an Apple iOS device's keyboard state.**
 

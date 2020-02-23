@@ -5,7 +5,7 @@ node_js:
 os: osx
 
 install: npm install
-script: npm test
+script: npm run test:coverage
 
 branches:
   only:

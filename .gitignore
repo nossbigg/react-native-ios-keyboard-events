@@ -63,3 +63,7 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+
+# Jest code coverage
+coverage
