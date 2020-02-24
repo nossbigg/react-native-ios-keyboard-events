@@ -31,20 +31,16 @@ export default class AppDemo extends React.Component<{}, IState> {
   public render() {
     return (
       <View style={styles.container}>
-        <View>
-          <Text style={styles.title}>
-            <Text>Current State: </Text>
-            <Text style={{ fontWeight: "bold" }}>
-              {this.state.currentKeyboardState}
-            </Text>
-          </Text>
-        </View>
+        <View>{createCurrentStateLabel(this.state.currentKeyboardState)}</View>
         <View>
           <TextInput
             placeholder="Type here!"
             style={styles.textInput}
             autoFocus
           />
+        </View>
+        <View style={styles.bottomContainer}>
+          {createCurrentStateLabel(this.state.currentKeyboardState)}
         </View>
       </View>
     );
@@ -67,6 +63,17 @@ export default class AppDemo extends React.Component<{}, IState> {
   }
 }
 
+const createCurrentStateLabel = (
+  currentKeyboardState: KeyboardState,
+): React.ReactNode => {
+  return (
+    <Text style={styles.title}>
+      <Text>Current State: </Text>
+      <Text style={{ fontWeight: "bold" }}>{currentKeyboardState}</Text>
+    </Text>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -84,5 +91,13 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginRight: 5,
     padding: 10,
+  },
+  bottomContainer: {
+    flex: 1,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    backgroundColor: "white",
+    position: "absolute",
+    top: "90%",
   },
 });
