@@ -15,13 +15,16 @@
     "ipad": "react-native run-ios --simulator='iPad Air 2 (13.0) (13.0)'",
     "iphone": "react-native run-ios --simulator='iPhone 8 Plus (13.0) (13.0)'",
     "android": "react-native run-android",
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --watch",
+    "test:once": "jest",
     "test:coverage": "jest && codecov",
     "tslint": "tslint -c tslint.json -p tsconfig.json 'src/**/*.{ts,tsx}'",
-    "lint": "npm run tslint && tsc",
-    "lint:fix": "prettier --write 'src/**/*.{ts,tsx}' && npm run tslint -- --fix && tsc",
-    "dist": "rm -rf dist && npm run lint && npm run test && tsc -p tsconfig-dist.json"
+    "lint": "npm run tslint && npm run typecheck",
+    "lint:fix": "prettier --write 'src/**/*.{ts,tsx}' && npm run tslint -- --fix && npm run typecheck",
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && tsc",
+    "build:dist": "rm -rf dist && tsc -p tsconfig-dist.json",
+    "dist": "npm run lint && npm run test:once && npm run build:dist"
   },
   "dependencies": {
     "deep-equal": "^1.0.1",
@@ -78,7 +81,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run test"
+      "pre-commit": "npm run lint && npm run test:once"
     }
   },
   "prettier": {

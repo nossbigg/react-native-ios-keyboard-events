@@ -3,7 +3,7 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-native",
     "lib": ["es2018"],
     "moduleResolution": "node",
@@ -15,5 +15,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true
   },
-  "exclude": ["dist", "babel.config.js"]
+  "exclude": ["dist", "babel.config.js"],
+  "files": ["src/index.ts", "src/events-server/index.ts"]
 }
