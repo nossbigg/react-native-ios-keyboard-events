@@ -50,7 +50,7 @@
     "metro-react-native-babel-preset": "0.51.1",
     "prettier": "^1.16.1",
     "react": "16.8.6",
-    "react-native": "0.60.6",
+    "react-native": "0.62.3",
     "react-test-renderer": "16.6.3",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
